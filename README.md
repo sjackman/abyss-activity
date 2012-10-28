@@ -515,3 +515,5 @@ File->Load from File... k48/bwa/30CJCAAXX_4.bam
 
 Find a scaffold gap on the largest contig.
 Find the two contigs that have consistent mate pairs joining them.
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/f8201d20af390015a0e171ecfe57738f "githalytics.com")](http://githalytics.com/sjackman/abyss-activity)
