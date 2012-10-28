@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eux
+
+source environment
+time run-abyss 2>&1 |tee abyss.log
+
+mkdir k48/bwasw
+cd k48/bwasw
+ln -s ../HS0674-contigs.fa .
+time run-bwasw
+
+cd $top
+mkdir bwa
+cd bwa
+time run-bwa 2>&1 |tee bwa.log
+
+cd $top/bwa
+time run-bcftools 2>&1 |tee bcftools.log
+
+cd $top/k48/bwasw
+time run-bcftools-assembly 2>&1 |tee bcftools.log
+
+cd $top/k48/bwasw
+time run-snpeff HS0674-contigs.var.vcf.gz >HS0674-contigs.var.snpeff

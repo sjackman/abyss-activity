@@ -1,0 +1,5 @@
+#!/bin/sh
+export top=$PWD
+PATH=$top/bin:$PATH
+export ref=~/share/GRCh37/hs37d5.fa
+export snpeff=~/src/snpeff/snpEff_v1_9_5

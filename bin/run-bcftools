@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eux
+
+samtools mpileup -uf $ref -d 9999 -L 9999 30CJCAAXX_4.bam >HS0674.bcf
+bcftools view -vcg HS0674.bcf >HS0674.var.vcf
+vcfutils.pl varFilter -D9999 HS0674.var.vcf >HS0674.varFilter.vcf
+bgzip HS0674.var.vcf
+tabix -pvcf HS0674.var.vcf.gz
+bgzip HS0674.varFilter.vcf
+tabix -pvcf HS0674.varFilter.vcf.gz

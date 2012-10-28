@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eux
+
+# Align the contigs to the reference genome using BWA-SW.
+bwa bwasw -t2 $ref HS0674-contigs.fa >HS0674-contigs.sam
+
+# Sort and index the BAM file.
+samtools view -Sb HS0674-contigs.sam >HS0674-contigs.tmp1.bam
+samtools sort HS0674-contigs.tmp1.bam HS0674-contigs
+samtools index HS0674-contigs.bam
+rm -f HS0674-contigs.tmp1.bam

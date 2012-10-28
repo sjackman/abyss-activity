@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eux
+
+# Align the unpaired reads.
+bwa aln -t2 $ref $top/30CJCAAXX_4_1.fq.gz >30CJCAAXX_4_1.sai
+bwa aln -t2 $ref $top/30CJCAAXX_4_2.fq.gz >30CJCAAXX_4_2.sai
+
+# Pair up the alignments.
+bwa sampe $ref 30CJCAAXX_4_1.sai 30CJCAAXX_4_2.sai \
+	$top/30CJCAAXX_4_1.fq.gz $top/30CJCAAXX_4_2.fq.gz >30CJCAAXX_4.sam
+
+# Sort and index the BAM file.
+samtools view -Sb 30CJCAAXX_4.sam >30CJCAAXX_4.unsorted.bam
+samtools sort 30CJCAAXX_4.unsorted.bam 30CJCAAXX_4
+samtools index 30CJCAAXX_4.bam
+rm -f 30CJCAAXX_4.sam 30CJCAAXX_4.unsorted.bam

@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eux
+
+mkdir -p k$k
+abyss-pe -C k$k name=HS0674 k=$k s=100 n=10 v=-v \
+	in="$top/30CJCAAXX_4_1.fq.gz $top/30CJCAAXX_4_2.fq.gz" \
+	"$@"

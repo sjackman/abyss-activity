@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eux
+java -jar $snpeff/snpEff.jar -config $snpeff/snpEff.config \
+	-vcf4 hg37 "$@"
