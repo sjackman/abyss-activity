@@ -62,12 +62,34 @@ The following software is required:
 * tabix 0.2.5: index tab-delimited files
 	http://sourceforge.net/projects/samtools/files/tabix
 
+Install the software on Mac OS X
+--------------------------------
+
+Install [Homebrew](http://mxcl.github.com/homebrew/).
+
+	ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+
+Install ABySS, BWA, samtools and tabix using Homebrew.
+
+	brew tap homebrew/science
+	brew install abyss bwa samtools tabix
+
+Install snpEff.
+
+	mkdir -p ~/abyss
+	cd ~/abyss
+	wget http://downloads.sourceforge.net/project/snpeff/snpEff_v1_9_5_core.zip
+	unzip snpEff_v1_9_5_core.zip
+	wget sf.net/projects/snpeff/files/databases/v1_9_5/snpEff_v1_9_5_hg37.zip
+	unzip snpEff_v1_9_5_hg37.zip
+	mv data snpEff_v1_9_5/
+
 Set up the environment
 ----------------------
 
 Create a working directory and edit the file `environment'.
 
-	mkdir ~/abyss
+	mkdir -p ~/abyss
 	cd ~/abyss
 	gvim environment
 
@@ -78,7 +100,7 @@ set these paths to reflect your directory structure.
 	#!/bin/sh
 	export top=~/abyss
 	PATH=$top/bin:$PATH
-	export snpeff=/opt/snpEff-1.9.5
+	export snpeff=$top/snpEff_v1_9_5
 	export ref=$top/chr3.fa
 
 Each time you open a new terminal, you will need to run the following
