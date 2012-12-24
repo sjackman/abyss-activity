@@ -155,29 +155,29 @@ Look at the first few reads.
 
 How long are the reads? (hint: use `wc -L`)
 
-	A: zcat 30CJCAAXX_4_1.fq.gz |head |wc -L
-	A: 50 bp
+> zcat 30CJCAAXX_4_1.fq.gz |head |wc -L
+> 50 bp
 
 How many lines are there in both files? (hint: use `wc -l`)
 
-	A: zcat 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz |wc -l
-	A: 40,869,448 lines
+> zcat 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz |wc -l
+> 40,869,448 lines
 
 How many lines per read?
 
-	A: 4 lines per read
+> 4 lines per read
 
 How many reads are there in both files?
 
-	A: 40869448 / 4 = 10,217,362 reads
+> 40869448 / 4 = 10,217,362 reads
 
 How many bases are sequenced?
 
-	A: 10217362*50 = 510,868,100 bp
+> 10217362*50 = 510,868,100 bp
 
 Assuming the BAC is 200 kbp, what is the depth of coverage?
 
-	A: 510868100/200000 = 2554 fold coverage
+> 510868100/200000 = 2554 fold coverage
 
 Exercise 3: Assemble the reads into contigs using ABySS
 =======================================================
@@ -220,19 +220,20 @@ Toggle Line Wrap", or type `:set nowrap`
 
 How many contigs are longer than 100 bp?
 
-	A: 5
+> 5
 
 What is the length of the longest contig (hint: use wc -L)?
 
-	A: wc -L k48/HS0674-contigs.fa
-	A: 121927 bp
+> wc -L k48/HS0674-contigs.fa
+> 121927 bp
 
 What is the N50 of the assembly?
 
 	abyss-fac k48/HS0674-contigs.fa
-	A: n   n:200  n:N50  min   N80    N50     N20     max     sum
-	A: 10  5      1      8044  54747  121861  121861  121861  212397
-	A: 122 kbp
+
+>     n   n:200  n:N50  min   N80    N50     N20     max     sum
+>     10  5      1      8044  54747  121861  121861  121861  212397
+> 122 kbp
 
 View the assembly log in a text editor.
 
@@ -241,12 +242,12 @@ View the assembly log in a text editor.
 What portion of the reads align to the assembly?
 (hint: search for "Aligned")
 
-	A: 7173439 of 10217362 reads (70.2083%)
+> 7173439 of 10217362 reads (70.2083%)
 
 What is the median fragment size and standard deviation of this library?
 (hint: search for "median")
 
-	A: median = 204 bp, sd = 18 bp
+> median = 204 bp, sd = 18 bp
 
 Exercise 4: Align the contigs to the reference using web BLAT
 =============================================================
@@ -266,16 +267,16 @@ and copy-and-paste their sequence into BLAT.
 
 What is the exact length of these two contigs?
 
-	A: 8,044 bp and 16,561 bp
+> 8,044 bp and 16,561 bp
 
 Click "browser" for the best alignment and then zoom out 10x.
 To which chromosome and band do these contigs align?
 
-	A: chr3q27.3
+> chr3q27.3
 
 What are the nearest two genes?
 
-	A: SST and RTP2
+> SST and RTP2
 
 Set the "Common SNPs" track (in Variation and Repeats) to "pack".
 A SNV is displayed with a red line. Zoom in on a SNV. Is it in dbSNP?
@@ -284,7 +285,7 @@ Zoom in on the gap between the two contigs.
 Set the "RepeatMasker" track (in Variation and Repeats) to "full".
 What feature overlaps the gap that likely caused the assembly gap?
 
-	A: Simple repeat (TA)n
+> Simple repeat (TA)n
 
 Zoom in to see the sequence of the feature.
 
@@ -293,7 +294,7 @@ Unaligned query sequence is shown with a thin purple line at the end
 of the alignment. The thin purple line can be difficult to see.
 Which contig has unaligned sequence at one end?
 
-	A: the 16.5 kbp contig
+> the 16.5 kbp contig
 
 Select that contig, and copy the unaligned sequence to the clipboard.
 Aligned sequence is shown in blue upper-case characters, and unaligned
@@ -307,11 +308,11 @@ Select the database "Nucleotide collection (nr/nt)".
 Paste the sequence into the query box. Click BLAST.
 To what sequence is the best BLAST hit?
 
-	A: Cloning vector pTARBAC6, complete sequence
+> Cloning vector pTARBAC6, complete sequence
 
 What is the cause of this chimeric contig?
 
-	A: This contig contains the cloning vector as well as the human insert.
+> This contig contains the cloning vector as well as the human insert.
 
 Exercise 5: Align the contigs to the reference using BWA-SW
 ===========================================================
@@ -346,7 +347,7 @@ Go to the region chr3:186,648,940
 
 What variants do you see?
 
-	A: a T/G SNV and a 24-bp insertion
+> a T/G SNV and a 24-bp insertion
 
 Go to the region chr3:186,676,730
 
@@ -355,11 +356,11 @@ Go to the region chr3:186,676,730
 Notice the Ns in the contig sequence, indicating a scaffold gap.
 How many Ns are in the contig?
 
-	A: 19 Ns
+> 19 Ns
 
 How many Ns should there be for the size of the gap to agree with the reference?
 
-	A: 15 Ns
+> 15 Ns
 
 Exercise 7: Browse the contig to reference alignments using IGV
 ===============================================================
@@ -378,7 +379,7 @@ IGV may take up to a minute to load.
 
 What genes overlap the contigs?
 
-	A: ST6GAL1, SST, RTP2 and BCL6
+> ST6GAL1, SST, RTP2 and BCL6
 
 Add the dbSNP track.
 Select "File->Load from Server..."  then expand "hg19" and
@@ -387,9 +388,9 @@ Zoom in on a SNV. Is it in dbSNP? Is it coding?
 
 Bonus: Find a coding SNV. What is its dbSNP rs ID?
 
-	A: rs1973791 (chr3:187,416,634)
-	A: rs11707167 (chr3:187,416,719)
-	A: rs1056932 (chr3:187,447,032)
+> rs1973791 (chr3:187,416,634)
+> rs11707167 (chr3:187,416,719)
+> rs1056932 (chr3:187,447,032)
 
 Exercise 8: View the contig to reference alignments SAM file
 ============================================================
@@ -404,24 +405,25 @@ contig on the reference is given in the third and fourth columns.
 Which contig has two alignments, and what are the positions of these
 two alignments?
 
-	A: The contig that has alignments starting at chr3:186,644,066 and chr3:187,439,792.
+> The contig that has alignments starting at
+> chr3:186,644,066 and chr3:187,439,792.
 
 The orientation is given in the second column. The numbers 0 and 16
 indicate positive and negative orientation respectively. What is the
 position and orientation of these two alignments?
 
-	A: chr3:186,644,066 (-) and chr3:187,439,792 (+)
+> chr3:186,644,066 (-) and chr3:187,439,792 (+)
 
 In IGV, go to the region chr3:186,600,000-187,600,000
 and find these two alignments.
 What large-scale structural rearrangement has occurred, and what is
 its approximate size?
 
-	A: a ~800 kbp inversion
+> a ~800 kbp inversion
 
 Which two genes are fused as a result of this rearrangement?
 
-	A: ST6GAL1 and BCL6
+> ST6GAL1 and BCL6
 
 Exercise 9: Call variants of the reads-to-reference alignments using bcftools (optional)
 =============================================================================================
@@ -474,11 +476,11 @@ Find all the coding SNVs.
 
 Find the non-synonymous SNV. What is its location?
 
-	A: chr3:187,416,719
+> chr3:187,416,719
 
 What is its dbSNP rs ID? (hint: use IGV or the UCSC genome browser)
 
-	A: rs11707167
+> rs11707167
 
 Open dbSNP in a web browser.
 
@@ -486,7 +488,7 @@ Open dbSNP in a web browser.
 
 What is the minor allele frequency (MAF) of this SNP?
 
-	A: C=0.490
+> C=0.490
 
 Exercise 12: Compare the assembly variants to the read-alignment variants (optional)
 ====================================================================================
@@ -507,22 +509,22 @@ Go to the region chr3:186,648,960
 
 Is the SNV called by both methods?
 
-	A: Yes.
+> Yes.
 
 Is the insertion called by both methods?
 
-	A: No, the insertion is called only by the assembly.
+> No, the insertion is called only by the assembly.
 
 Hover the mouse cursor over the insertion to see the inserted sequence.
 What is the inserted sequence?
 
-	A: TCTGGGTTCCTTCAAATCCTGCCT
+> TCTGGGTTCCTTCAAATCCTGCCT
 
 Compare the inserted sequence to the reference sequence at this
 location. What sequence do the inserted sequence and the reference
 sequence have in common?
 
-	A: The insertion duplicates this 8-bp sequence: TCTGGGTT
+> The insertion duplicates this 8-bp sequence: TCTGGGTT
 
 Load the alignments of the reads to the reference.
 
@@ -532,8 +534,8 @@ The aligned reads do not show the insertion, but the alignments that
 span the insertion have mismatches at the end of the alignment.
 Do those mismatched bases agree with the inserted sequence?
 
-	A: Yes, the mismatched bases show CT at the 5' end and
-	A: CC at the 3' end, which agree with the inserted sequence.
+> Yes, the mismatched bases show CT at the 5' end and CC
+> at the 3' end, which agree with the inserted sequence.
 
 Exercise 13: Align the reads to the contigs using BWA (optional)
 ================================================================
@@ -558,8 +560,8 @@ This command may fail with the following error:
 
 How long is the longest line? (hint: use `wc -L`)
 
-	A: wc -L HS0674-contigs.fa
-	A: 121,927 bp
+> wc -L HS0674-contigs.fa
+> 121,927 bp
 
 Break the long lines into short lines.
 
