@@ -18,6 +18,25 @@ small genome, use BWA and BWA-SW to align reads and contigs to a
 reference genome, use IGV to visualize these alignments, and use bcftools
 and snpEff to call variants and determine their effect.
 
+Contents
+========
+
+* [Getting Started](#getting-started)
+* [Exercise 0: Index the reference using BWA](#exercise-0-index-the-reference-using-bwa)
+* [Exercise 1: Align the reads to the reference using BWA (optional)](#exercise-1-align-the-reads-to-the-reference-using-bwa-optional)
+* [Exercise 2: Inspect the reads](#exercise-2-inspect-the-reads)
+* [Exercise 3: Assemble the reads into contigs using ABySS](#exercise-3-assemble-the-reads-into-contigs-using-abyss)
+* [Exercise 4: Align the contigs to the reference using web BLAT](#exercise-4-align-the-contigs-to-the-reference-using-web-blat)
+* [Exercise 5: Align the contigs to the reference using BWA-SW](#exercise-5-align-the-contigs-to-the-reference-using-bwa-sw)
+* [Exercise 6: Browse the contig to reference alignments using samtools tview](#exercise-6-browse-the-contig-to-reference-alignments-using-samtools-tview)
+* [Exercise 7: Browse the contig to reference alignments using IGV](#exercise-7-browse-the-contig-to-reference-alignments-using-igv)
+* [Exercise 8: View the contig to reference alignments SAM file](#exercise-8-view-the-contig-to-reference-alignments-sam-file)
+* [Exercise 9: Call variants of the reads-to-reference alignments using bcftools (optional)](#exercise-9-call-variants-of-the-reads-to-reference-alignments-using-bcftools-optional)
+* [Exercise 10: Call variants of the contigs-to-reference alignments using bcftoolss](#exercse-10-call-variants-of-the-contigs-to-reference-alignments-using-bcftools)
+* [Exercise 11: Determine the effects of the SNVs](#exercise-11-determine-the-effects-of-the-snvs)
+* [Exercise 12: Compare the assembly variants to the read-alignment variants (optional)](#exercise-12-compare-the-assembly-variants-to-the-read-alignment-variants-optional)
+* [Exercise 13: Align the reads to the contigs using BWA (optional)](#exercise-13-align-the-reads-to-the-contigs-using-bwa-optional)
+
 Getting Started
 ===============
 
