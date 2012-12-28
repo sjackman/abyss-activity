@@ -47,17 +47,17 @@ The total run time of the tools alone is approximately 70 minutes on a
 2-core 2 GHz system. 4 GB of RAM and 5 GB of disk space is required.
 The following software is required:
 
-* ABySS 1.3.0: assemble short reads *de novo*
+* ABySS 1.3.4: assemble short reads *de novo*
 	http://www.bcgsc.ca/platform/bioinfo/software/abyss
-* BWA 0.5.9: align short reads
+* BWA 0.6.2: align short reads
 	http://bio-bwa.sourceforge.net
-* IGV 2.0.11: visualize a genome
+* IGV 2.2: visualize a genome
 	http://www.broadinstitute.org/igv
 * Java 6: execute Java programs
 	http://www.java.com
-* samtools 0.1.16: manipulate SAM/BAM files
+* samtools 0.1.18: manipulate SAM/BAM files
 	http://samtools.sourceforge.net
-* snpEff 1.9.5: determine the effect of SNPs
+* snpEff 3.1: determine the effect of SNPs
 	http://snpeff.sourceforge.net
 * tabix 0.2.5: index tab-delimited files
 	http://sourceforge.net/projects/samtools/files/tabix
@@ -78,29 +78,28 @@ Install snpEff.
 
 	mkdir -p ~/abyss
 	cd ~/abyss
-	wget http://downloads.sourceforge.net/project/snpeff/snpEff_v1_9_5_core.zip
-	unzip snpEff_v1_9_5_core.zip
-	wget sf.net/projects/snpeff/files/databases/v1_9_5/snpEff_v1_9_5_hg37.zip
-	unzip snpEff_v1_9_5_hg37.zip
-	mv data snpEff_v1_9_5/
+	wget http://downloads.sourceforge.net/project/snpeff/snpEff_v3_1_core.zip
+	unzip snpEff_v3_1_core.zip
+	wget http://downloads.sourceforge.net/project/snpeff/databases/v3_1/snpEff_v3_1_GRCh37.68.zip
+	unzip -d snpEff_3_1 snpEff_v3_1_GRCh37.68.zip
+	echo "data_dir=$PWD/snpEff_3_1/data" >>snpEff_3_1/snpEff.config
 
 Set up the environment
 ----------------------
 
-Create a working directory and edit the file `environment'.
+Create a working directory and edit the file `environment`.
 
 	mkdir -p ~/abyss
 	cd ~/abyss
 	gvim environment
 
 This shell script will set environment variables to point to the
-location of the software. This script is an example. You will need to
-set these paths to reflect your directory structure.
+location of the software.
 
 	#!/bin/sh
 	export top=~/abyss
 	PATH=$top/bin:$PATH
-	export snpeff=$top/snpEff_v1_9_5
+	export snpeff=$top/snpEff_3_1
 	export ref=$top/chr3.fa
 
 Each time you open a new terminal, you will need to run the following
@@ -118,7 +117,6 @@ Check that the tools are installed in the PATH.
 
 Download the workshop scripts.
 
-	mkdir bin
 	wget -P bin ftp://ftp.bcgsc.ca/public/sjackman/bin/*
 
 Check that the workshop scripts are in the PATH.
@@ -177,12 +175,12 @@ Look at the first few reads.
 
 How long are the reads? (hint: use `wc -L`)
 
-> zcat 30CJCAAXX_4_1.fq.gz |head |wc -L
+>     zcat 30CJCAAXX_4_1.fq.gz |head |wc -L
 > 50 bp
 
 How many lines are there in both files? (hint: use `wc -l`)
 
-> zcat 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz |wc -l
+>     zcat 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz |wc -l
 > 40,869,448 lines
 
 How many lines per read?
@@ -207,7 +205,7 @@ Exercise 3: Assemble the reads into contigs using ABySS
 Run the assembly.
 
 	cd $top
-	k=48 run-abyss 2>&1 |tee abyss.log
+	k=48 run-abyss contigs 2>&1 |tee abyss.log
 
 5 min, 200 MB RAM, 2 MB disk space
 
@@ -227,9 +225,9 @@ merge contigs joined by paired-end information. You can instruct ABySS
 to stop after any of these stages. Use the -n option to see the
 commands for each stage.
 
-	k=32 run-abyss se-contigs -n
+	k=32 run-abyss unitigs -n
 	k=32 run-abyss pe-sam -n
-	k=32 run-abyss pe-contigs -n
+	k=32 run-abyss contigs -n
 
 Once the assembly has completed, view the contigs in a text editor.
 
@@ -242,29 +240,29 @@ Toggle Line Wrap", or type `:set nowrap`
 
 How many contigs are longer than 100 bp?
 
-> 5
+> 6
 
 What is the length of the longest contig (hint: use wc -L)?
 
-> wc -L k48/HS0674-contigs.fa
-> 121927 bp
+>     wc -L k48/HS0674-contigs.fa
+> 67530 bp
 
 What is the N50 of the assembly?
 
 	abyss-fac k48/HS0674-contigs.fa
 
->     n   n:200  n:N50  min   N80    N50     N20     max     sum
->     10  5      1      8044  54747  121861  121861  121861  212397
-> 122 kbp
+>     n      n:200  n:N50  min    N80    N50    N20    max    sum
+>     14     6      2      8044   54373  54746  67484  67484  212392
+> 54746 bp
 
 View the assembly log in a text editor.
 
 	gview abyss.log
 
 What portion of the reads align to the assembly?
-(hint: search for "Aligned")
+(hint: search for "Mapped")
 
-> 7173439 of 10217362 reads (70.2083%)
+> Mapped 7172456 of 10217362 reads (70.2%)
 
 What is the median fragment size and standard deviation of this library?
 (hint: search for "median")
@@ -330,7 +328,7 @@ Select the database "Nucleotide collection (nr/nt)".
 Paste the sequence into the query box. Click BLAST.
 To what sequence is the best BLAST hit?
 
-> Cloning vector pTARBAC6, complete sequence
+> Cloning vector pTARBAC2.1
 
 What is the cause of this chimeric contig?
 
@@ -378,22 +376,22 @@ Go to the region chr3:186,676,730
 Notice the Ns in the contig sequence, indicating a scaffold gap.
 How many Ns are in the contig?
 
-> 19 Ns
+> 20 Ns
 
 How many Ns should there be for the size of the gap to agree with the reference?
 
-> 15 Ns
+> 16 Ns
 
 Exercise 7: Browse the contig to reference alignments using IGV
 ===============================================================
 
 Start IGV.
 
-	http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+	javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
 
 Select "View -> Preferences... -> Alignments" and change
-"Visibility range threshold (kb)" to 1000. Restart IGV.
-Select the reference "Human hg19".
+"Visibility range threshold (kb)" to 1000.
+Select the "Genomes -> Load Genome From Server... -> Human hg19".
 Then select "File->Load from File..." and "k48/bwasw/HS0674-contigs.bam"
 Go to the region chr3:186,600,000-187,600,000 by entering it into
 the box labeled "Go".
@@ -404,14 +402,14 @@ What genes overlap the contigs?
 > ST6GAL1, SST, RTP2 and BCL6
 
 Add the dbSNP track.
-Select "File->Load from Server..."  then expand "hg19" and
+Select "File->Load from Server..."  then expand "Annotations" and
 "Variation and Repeats" and select "dbSNP 1.3.1".
 Zoom in on a SNV. Is it in dbSNP? Is it coding?
 
 Bonus: Find a coding SNV. What is its dbSNP rs ID?
 
-> rs1973791 (chr3:187,416,634)
-> rs11707167 (chr3:187,416,719)
+> rs1973791 (chr3:187,416,634),
+> rs11707167 (chr3:187,416,719),
 > rs1056932 (chr3:187,447,032)
 
 Exercise 8: View the contig to reference alignments SAM file
@@ -424,17 +422,17 @@ View the SAM file in a text editor. Disable line wrap.
 
 The contig ID is given in the first column, and the position of the
 contig on the reference is given in the third and fourth columns.
-Which contig has two alignments, and what are the positions of these
-two alignments?
+Which large contig has two alignments, and what are the positions of
+these two alignments?
 
 > The contig that has alignments starting at
-> chr3:186,644,066 and chr3:187,439,792.
+> chr3:186,698,393 and chr3:187,439,792.
 
 The orientation is given in the second column. The numbers 0 and 16
 indicate positive and negative orientation respectively. What is the
 position and orientation of these two alignments?
 
-> chr3:186,644,066 (-) and chr3:187,439,792 (+)
+> chr3:186,698,393 (-) and chr3:187,439,792 (+)
 
 In IGV, go to the region chr3:186,600,000-187,600,000
 and find these two alignments.
@@ -510,7 +508,7 @@ Open dbSNP in a web browser.
 
 What is the minor allele frequency (MAF) of this SNP?
 
-> C=0.490
+> T=0.4716
 
 Exercise 12: Compare the assembly variants to the read-alignment variants (optional)
 ====================================================================================
@@ -519,7 +517,7 @@ Browse the variants called by both methods using IGV.
 
 Start IGV.
 
-	http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+	javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
 
 Select:
 
@@ -576,26 +574,9 @@ Index the assembly FASTA file.
 
 	samtools faidx ../HS0674-contigs.fa
 
-This command may fail with the following error:
-
-	[fai_build_core] line length exceeds 65535 in sequence '94'.
-
-How long is the longest line? (hint: use `wc -L`)
-
-> wc -L HS0674-contigs.fa
-> 121,927 bp
-
-Break the long lines into short lines.
-
-	fold ../HS0674-contigs.fa >HS0674-contigs.fa
-
-Index the FASTA file.
-
-	samtools faidx HS0674-contigs.fa
-
 Browse the BAM file using samtools tview.
 
-	samtools tview 30CJCAAXX_4.bam HS0674-contigs.fa
+	samtools tview 30CJCAAXX_4.bam ../HS0674-contigs.fa
 
 Browse the BAM file using IGV.
 
