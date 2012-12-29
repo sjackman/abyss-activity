@@ -171,16 +171,16 @@ reads.
 Look at the first few reads.
 
 	cd $top
-	zcat 30CJCAAXX_4_1.fq.gz |head
+	gunzip -c 30CJCAAXX_4_1.fq.gz |head
 
 How long are the reads? (hint: use `wc -L`)
 
->     zcat 30CJCAAXX_4_1.fq.gz |head |wc -L
+>     gunzip -c 30CJCAAXX_4_1.fq.gz |head |wc -L
 > 50 bp
 
 How many lines are there in both files? (hint: use `wc -l`)
 
->     zcat 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz |wc -l
+>     gunzip -c 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz |wc -l
 > 40,869,448 lines
 
 How many lines per read?
