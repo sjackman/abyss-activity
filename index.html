@@ -1,0 +1,725 @@
+<html>
+<head>
+<title>De novo assembly of Illumina reads using ABySS and alignment using BWA</title>
+<link type="text/css" rel="stylesheet" href="github.css"/>
+</head>
+
+<body>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+$(document).ready(function() {
+	$('blockquote').css('display', 'none');
+	$('blockquote').before('<a class="answer" href="#" style="color:orange">[show answer]</a>')
+	$('a.answer').on('click', function(event) {
+		$(this).next().show('fast');
+		$(this).hide();
+		event.preventDefault();
+	} );
+} );
+</script>
+
+<div id="readme" class="clearfix announce instapaper_body md">
+<span class="name">ABySS</span>
+<article class="markdown-body entry-content" itemprop="mainContentOfPage">
+<h1>De novo assembly of Illumina reads using ABySS and alignment using BWA</h1>
+
+<p>This workshop is designed by Shaun Jackman <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#111;:&#x73;&#106;&#97;&#99;&#107;&#109;&#97;&#110;&#64;&#103;&#109;&#97;&#x69;&#108;&#x2E;c&#x6F;&#109;">&#x73;&#106;&#97;&#99;&#107;&#109;&#97;&#110;&#64;&#103;&#109;&#97;&#x69;&#108;&#x2E;c&#x6F;&#109;</a>.</p>
+
+<h1>Purpose</h1>
+
+<p>In this lab we will use ABySS to assemble a 200 kbp bacterial
+artificial chromosome (BAC). The data set is one lane of paired-end
+reads from the Illumina platform. The assembled contigs are aligned to
+the human reference genome using BWA-SW and variants are called using
+bcftools. IGV is used to visualize these alignments and variants.
+snpEff is used to determine the effects of these variants.</p>
+
+<p>After this lab, you will have learned how to use ABySS to assemble a
+small genome, use BWA and BWA-SW to align reads and contigs to a
+reference genome, use IGV to visualize these alignments, and use bcftools
+and snpEff to call variants and determine their effect.</p>
+
+<h1>Contents</h1>
+
+<ul>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#exercise-0-index-the-reference-using-bwa">Exercise 0: Index the reference using BWA</a></li>
+<li><a href="#exercise-1-align-the-reads-to-the-reference-using-bwa-optional">Exercise 1: Align the reads to the reference using BWA (optional)</a></li>
+<li><a href="#exercise-2-inspect-the-reads">Exercise 2: Inspect the reads</a></li>
+<li><a href="#exercise-3-assemble-the-reads-into-contigs-using-abyss">Exercise 3: Assemble the reads into contigs using ABySS</a></li>
+<li><a href="#exercise-4-align-the-contigs-to-the-reference-using-web-blat">Exercise 4: Align the contigs to the reference using web BLAT</a></li>
+<li><a href="#exercise-5-align-the-contigs-to-the-reference-using-bwa-sw">Exercise 5: Align the contigs to the reference using BWA-SW</a></li>
+<li><a href="#exercise-6-browse-the-contig-to-reference-alignments-using-samtools-tview">Exercise 6: Browse the contig to reference alignments using samtools tview</a></li>
+<li><a href="#exercise-7-browse-the-contig-to-reference-alignments-using-igv">Exercise 7: Browse the contig to reference alignments using IGV</a></li>
+<li><a href="#exercise-8-view-the-contig-to-reference-alignments-sam-file">Exercise 8: View the contig to reference alignments SAM file</a></li>
+<li><a href="#exercise-9-call-variants-of-the-reads-to-reference-alignments-using-bcftools-optional">Exercise 9: Call variants of the reads-to-reference alignments using bcftools (optional)</a></li>
+<li><a href="#exercse-10-call-variants-of-the-contigs-to-reference-alignments-using-bcftools">Exercise 10: Call variants of the contigs-to-reference alignments using bcftoolss</a></li>
+<li><a href="#exercise-11-determine-the-effects-of-the-snvs">Exercise 11: Determine the effects of the SNVs</a></li>
+<li><a href="#exercise-12-compare-the-assembly-variants-to-the-read-alignment-variants-optional">Exercise 12: Compare the assembly variants to the read-alignment variants (optional)</a></li>
+<li><a href="#exercise-13-align-the-reads-to-the-contigs-using-bwa-optional">Exercise 13: Align the reads to the contigs using BWA (optional)</a></li>
+</ul>
+
+<h1>Getting Started</h1>
+
+<h2>System requirements</h2>
+
+<p>The total run time of the tools alone is approximately 70 minutes on a
+2-core 2 GHz system. 4 GB of RAM and 5 GB of disk space is required.
+The following software is required:</p>
+
+<ul>
+<li>ABySS 1.3.4: assemble short reads <em>de novo</em>
+http://www.bcgsc.ca/platform/bioinfo/software/abyss</li>
+<li>BWA 0.6.2: align short reads
+http://bio-bwa.sourceforge.net</li>
+<li>IGV 2.2: visualize a genome
+http://www.broadinstitute.org/igv</li>
+<li>Java 6: execute Java programs
+http://www.java.com</li>
+<li>samtools 0.1.18: manipulate SAM/BAM files
+http://samtools.sourceforge.net</li>
+<li>snpEff 3.1: determine the effect of SNPs
+http://snpeff.sourceforge.net</li>
+<li>tabix 0.2.5: index tab-delimited files
+http://sourceforge.net/projects/samtools/files/tabix</li>
+</ul>
+
+<h2>Install the software on Mac OS X</h2>
+
+<p>Install <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.</p>
+
+<pre><code>ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+</code></pre>
+
+<p>Install ABySS, BWA, samtools and tabix using Homebrew.</p>
+
+<pre><code>brew tap homebrew/science
+brew install abyss bwa samtools tabix
+</code></pre>
+
+<p>Install snpEff.</p>
+
+<pre><code>mkdir -p ~/abyss
+cd ~/abyss
+wget http://downloads.sourceforge.net/project/snpeff/snpEff_v3_1_core.zip
+unzip snpEff_v3_1_core.zip
+wget http://downloads.sourceforge.net/project/snpeff/databases/v3_1/snpEff_v3_1_GRCh37.68.zip
+unzip -d snpEff_3_1 snpEff_v3_1_GRCh37.68.zip
+echo "data_dir=$PWD/snpEff_3_1/data" &gt;&gt;snpEff_3_1/snpEff.config
+</code></pre>
+
+<h2>Set up the environment</h2>
+
+<p>Create a working directory and edit the file <code>environment</code>.</p>
+
+<pre><code>mkdir -p ~/abyss
+cd ~/abyss
+gvim environment
+</code></pre>
+
+<p>This shell script will set environment variables to point to the
+location of the software.</p>
+
+<pre><code>#!/bin/sh
+export top=~/abyss
+PATH=$top/bin:$PATH
+export snpeff=$top/snpEff_3_1
+export ref=$top/chr3.fa
+</code></pre>
+
+<p>Each time you open a new terminal, you will need to run the following
+two commands. Change to the working directory and source the
+environment script:</p>
+
+<pre><code>cd ~/abyss
+source environment
+</code></pre>
+
+<p>Check that the tools are installed in the PATH.</p>
+
+<pre><code>source environment
+which abyss-fac abyss-pe bcftools bgzip bwa java samtools tabix vcfutils.pl
+ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/hg37
+</code></pre>
+
+<p>Download the workshop scripts.</p>
+
+<pre><code>wget -P bin ftp://ftp.bcgsc.ca/public/sjackman/bin/*
+</code></pre>
+
+<p>Check that the workshop scripts are in the PATH.</p>
+
+<pre><code>which run-abyss run-bwa run-bwasw run-snpeff run-bcftools run-bcftools-assembly
+</code></pre>
+
+<p>Download the FASTQ files.</p>
+
+<pre><code>wget ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_1.fq.gz
+wget ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_2.fq.gz
+</code></pre>
+
+<h1>Exercise 0: Index the reference using BWA</h1>
+
+<p>Download the reference file of Human chromosome 3.</p>
+
+<pre><code>cd $top
+wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr3.fa.gz
+gunzip chr3.fa.gz
+</code></pre>
+
+<p>Index the reference file.</p>
+
+<pre><code>bwa index $ref
+</code></pre>
+
+<p>8 min, 1 GB RAM, 260 MB disk space</p>
+
+<h1>Exercise 1: Align the reads to the reference using BWA (optional)</h1>
+
+<p>Run BWA.</p>
+
+<pre><code>cd $top
+mkdir bwa
+cd bwa
+run-bwa 2&gt;&amp;1 |tee bwa.log
+</code></pre>
+
+<p>40 min, 250 MB RAM, 3 GB disk space</p>
+
+<p>While this job is running in the background, open a new terminal and
+continue with the next section. Remember that you have to set the
+environment. In the new terminal window type:</p>
+
+<pre><code>cd ~/abyss
+source environment
+</code></pre>
+
+<h1>Exercise 2: Inspect the reads</h1>
+
+<p>There are two FASTQ files for this one lane of paired-end Illumina
+data: one file for the forward reads and one file for the reverse
+reads.
+Look at the first few reads.</p>
+
+<pre><code>cd $top
+gunzip -c 30CJCAAXX_4_1.fq.gz |head
+</code></pre>
+
+<p>How long are the reads? (hint: use <code>wc -L</code>)</p>
+
+<blockquote>
+<pre><code>gunzip -c 30CJCAAXX_4_1.fq.gz |head |wc -L
+</code></pre>
+
+<p>50 bp</p>
+</blockquote>
+
+<p>How many lines are there in both files? (hint: use <code>wc -l</code>)</p>
+
+<blockquote>
+<pre><code>gunzip -c 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz |wc -l
+</code></pre>
+
+<p>40,869,448 lines</p>
+</blockquote>
+
+<p>How many lines per read?</p>
+
+<blockquote>
+  <p>4 lines per read</p>
+</blockquote>
+
+<p>How many reads are there in both files?</p>
+
+<blockquote>
+  <p>40869448 / 4 = 10,217,362 reads</p>
+</blockquote>
+
+<p>How many bases are sequenced?</p>
+
+<blockquote>
+  <p>10217362*50 = 510,868,100 bp</p>
+</blockquote>
+
+<p>Assuming the BAC is 200 kbp, what is the depth of coverage?</p>
+
+<blockquote>
+  <p>510868100/200000 = 2554 fold coverage</p>
+</blockquote>
+
+<h1>Exercise 3: Assemble the reads into contigs using ABySS</h1>
+
+<p>Run the assembly.</p>
+
+<pre><code>cd $top
+k=48 run-abyss contigs 2&gt;&amp;1 |tee abyss.log
+</code></pre>
+
+<p>5 min, 200 MB RAM, 2 MB disk space</p>
+
+<p>While the assembly is running, view the script in a text editor. You
+may substitute whichever text editor you prefer for <code>gview</code>.</p>
+
+<pre><code>gview $top/bin/run-abyss
+</code></pre>
+
+<p>Look at the option <code>-n,--dry-run</code> of abyss-pe. Its output is the
+commands that ABySS will run for the assembly.</p>
+
+<pre><code>k=32 run-abyss -n
+</code></pre>
+
+<p>The assembly runs in three stages: assemble contigs without paired-end
+information, align the paired-end reads to the initial assembly, and
+merge contigs joined by paired-end information. You can instruct ABySS
+to stop after any of these stages. Use the -n option to see the
+commands for each stage.</p>
+
+<pre><code>k=32 run-abyss unitigs -n
+k=32 run-abyss pe-sam -n
+k=32 run-abyss contigs -n
+</code></pre>
+
+<p>Once the assembly has completed, view the contigs in a text editor.</p>
+
+<pre><code>gview k48/HS0674-contigs.fa
+</code></pre>
+
+<p>Disabling line wrap makes it easier to browse the file. For Emacs,
+select the option "Options -> Line Wrapping in this Buffer -> Truncate
+Long Lines." For gview, select the option "Edit -> File Settings ->
+Toggle Line Wrap", or type <code>:set nowrap</code></p>
+
+<p>How many contigs are longer than 100 bp?</p>
+
+<blockquote>
+  <p>6</p>
+</blockquote>
+
+<p>What is the length of the longest contig (hint: use wc -L)?</p>
+
+<blockquote>
+<pre><code>wc -L k48/HS0674-contigs.fa
+</code></pre>
+
+<p>67530 bp</p>
+</blockquote>
+
+<p>What is the N50 of the assembly?</p>
+
+<pre><code>abyss-fac k48/HS0674-contigs.fa
+</code></pre>
+
+<blockquote>
+<pre><code>n      n:200  n:N50  min    N80    N50    N20    max    sum
+14     6      2      8044   54373  54746  67484  67484  212392
+</code></pre>
+
+<p>54746 bp</p>
+</blockquote>
+
+<p>View the assembly log in a text editor.</p>
+
+<pre><code>gview abyss.log
+</code></pre>
+
+<p>What portion of the reads align to the assembly?
+(hint: search for "Mapped")</p>
+
+<blockquote>
+  <p>Mapped 7172456 of 10217362 reads (70.2%)</p>
+</blockquote>
+
+<p>What is the median fragment size and standard deviation of this library?
+(hint: search for "median")</p>
+
+<blockquote>
+  <p>median = 204 bp, sd = 18 bp</p>
+</blockquote>
+
+<h1>Exercise 4: Align the contigs to the reference using web BLAT</h1>
+
+<p>Open BLAT in a web browser.</p>
+
+<pre><code>http://genome.ucsc.edu
+</code></pre>
+
+<p>View the assembled contigs in a text editor.</p>
+
+<pre><code>gview k48/HS0674-contigs.fa
+</code></pre>
+
+<p>Disabling line wrap makes it easier to select the full sequence.</p>
+
+<p>Select the two contigs whose lengths are approximately 8 and 16.5 kbp
+and copy-and-paste their sequence into BLAT.</p>
+
+<p>What is the exact length of these two contigs?</p>
+
+<blockquote>
+  <p>8,044 bp and 16,561 bp</p>
+</blockquote>
+
+<p>Click "browser" for the best alignment and then zoom out 10x.
+To which chromosome and band do these contigs align?</p>
+
+<blockquote>
+  <p>chr3q27.3</p>
+</blockquote>
+
+<p>What are the nearest two genes?</p>
+
+<blockquote>
+  <p>SST and RTP2</p>
+</blockquote>
+
+<p>Set the "Common SNPs" track (in Variation and Repeats) to "pack".
+A SNV is displayed with a red line. Zoom in on a SNV. Is it in dbSNP?</p>
+
+<p>Zoom in on the gap between the two contigs.
+Set the "RepeatMasker" track (in Variation and Repeats) to "full".
+What feature overlaps the gap that likely caused the assembly gap?</p>
+
+<blockquote>
+  <p>Simple repeat (TA)n</p>
+</blockquote>
+
+<p>Zoom in to see the sequence of the feature.</p>
+
+<p>Zoom out to see the alignment of both contigs.
+Unaligned query sequence is shown with a thin purple line at the end
+of the alignment. The thin purple line can be difficult to see.
+Which contig has unaligned sequence at one end?</p>
+
+<blockquote>
+  <p>the 16.5 kbp contig</p>
+</blockquote>
+
+<p>Select that contig, and copy the unaligned sequence to the clipboard.
+Aligned sequence is shown in blue upper-case characters, and unaligned
+sequence is shown in black lower-case characters.
+Open BLAST in a web browser.</p>
+
+<pre><code>http://blast.ncbi.nlm.nih.gov
+</code></pre>
+
+<p>Select "nucleotide blast".
+Select the database "Nucleotide collection (nr/nt)".
+Paste the sequence into the query box. Click BLAST.
+To what sequence is the best BLAST hit?</p>
+
+<blockquote>
+  <p>Cloning vector pTARBAC2.1</p>
+</blockquote>
+
+<p>What is the cause of this chimeric contig?</p>
+
+<blockquote>
+  <p>This contig contains the cloning vector as well as the human insert.</p>
+</blockquote>
+
+<h1>Exercise 5: Align the contigs to the reference using BWA-SW</h1>
+
+<p>Warning: do not start BWA-SW until BWA has completed unless your
+machine has at least 2 GB of RAM.
+Run BWA-SW.</p>
+
+<pre><code>cd $top
+mkdir k48/bwasw
+cd k48/bwasw
+ln -s ../HS0674-contigs.fa .
+run-bwasw
+</code></pre>
+
+<p>1 min, 800 MB RAM, 1 MB disk space</p>
+
+<p>While the alignment is running, view the script in a text editor.</p>
+
+<pre><code>gview $top/bin/run-bwasw
+</code></pre>
+
+<h1>Exercise 6: Browse the contig to reference alignments using samtools tview</h1>
+
+<p>Run samtools tview.</p>
+
+<pre><code>cd $top/k48/bwasw
+samtools tview HS0674-contigs.bam $ref
+</code></pre>
+
+<p>Go to the region chr3:186,648,940</p>
+
+<pre><code>g chr3:186,648,940
+</code></pre>
+
+<p>What variants do you see?</p>
+
+<blockquote>
+  <p>a T/G SNV and a 24-bp insertion</p>
+</blockquote>
+
+<p>Go to the region chr3:186,676,730</p>
+
+<pre><code>g chr3:186,676,730
+</code></pre>
+
+<p>Notice the Ns in the contig sequence, indicating a scaffold gap.
+How many Ns are in the contig?</p>
+
+<blockquote>
+  <p>20 Ns</p>
+</blockquote>
+
+<p>How many Ns should there be for the size of the gap to agree with the reference?</p>
+
+<blockquote>
+  <p>16 Ns</p>
+</blockquote>
+
+<h1>Exercise 7: Browse the contig to reference alignments using IGV</h1>
+
+<p>Start IGV.</p>
+
+<pre><code>javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+</code></pre>
+
+<p>Select "View -> Preferences... -> Alignments" and change
+"Visibility range threshold (kb)" to 1000.
+Select the "Genomes -> Load Genome From Server... -> Human hg19".
+Then select "File->Load from File..." and "k48/bwasw/HS0674-contigs.bam"
+Go to the region chr3:186,600,000-187,600,000 by entering it into
+the box labeled "Go".
+IGV may take up to a minute to load.</p>
+
+<p>What genes overlap the contigs?</p>
+
+<blockquote>
+  <p>ST6GAL1, SST, RTP2 and BCL6</p>
+</blockquote>
+
+<p>Add the dbSNP track.
+Select "File->Load from Server..."  then expand "Annotations" and
+"Variation and Repeats" and select "dbSNP 1.3.1".
+Zoom in on a SNV. Is it in dbSNP? Is it coding?</p>
+
+<p>Bonus: Find a coding SNV. What is its dbSNP rs ID?</p>
+
+<blockquote>
+  <p>rs1973791 (chr3:187,416,634),
+rs11707167 (chr3:187,416,719),
+rs1056932 (chr3:187,447,032)</p>
+</blockquote>
+
+<h1>Exercise 8: View the contig to reference alignments SAM file</h1>
+
+<p>View the SAM file in a text editor. Disable line wrap.</p>
+
+<pre><code>cd $top/k48/bwasw
+gview HS0674-contigs.sam
+</code></pre>
+
+<p>The contig ID is given in the first column, and the position of the
+contig on the reference is given in the third and fourth columns.
+Which large contig has two alignments, and what are the positions of
+these two alignments?</p>
+
+<blockquote>
+  <p>The contig that has alignments starting at
+chr3:186,698,393 and chr3:187,439,792.</p>
+</blockquote>
+
+<p>The orientation is given in the second column. The numbers 0 and 16
+indicate positive and negative orientation respectively. What is the
+position and orientation of these two alignments?</p>
+
+<blockquote>
+  <p>chr3:186,698,393 (-) and chr3:187,439,792 (+)</p>
+</blockquote>
+
+<p>In IGV, go to the region chr3:186,600,000-187,600,000
+and find these two alignments.
+What large-scale structural rearrangement has occurred, and what is
+its approximate size?</p>
+
+<blockquote>
+  <p>a ~800 kbp inversion</p>
+</blockquote>
+
+<p>Which two genes are fused as a result of this rearrangement?</p>
+
+<blockquote>
+  <p>ST6GAL1 and BCL6</p>
+</blockquote>
+
+<h1>Exercise 9: Call variants of the reads-to-reference alignments using bcftools (optional)</h1>
+
+<p>Check that BWA has completed aligning the reads to the reference.
+Run bcftools in this terminal.</p>
+
+<pre><code>cd $top/bwa
+run-bcftools 2&gt;&amp;1 |tee bcftools.log
+</code></pre>
+
+<p>20 min, 250 MB RAM, 120 MB disk space</p>
+
+<p>While bcftools is running, view the script in a text editor.</p>
+
+<pre><code>gview $top/bin/run-bcftools
+</code></pre>
+
+<h1>Exercse 10: Call variants of the contigs-to-reference alignments using bcftools</h1>
+
+<p>Run bcftools.</p>
+
+<pre><code>cd $top/k48/bwasw
+run-bcftools-assembly 2&gt;&amp;1 |tee bcftools.log
+</code></pre>
+
+<p>Browse the variants using IGV.
+Select "File->Load from File... k48/bwasw/HS0674-contigs.var.vcf.gz"
+Right-click on the VCF track and select "Color by Allele".</p>
+
+<h1>Exercise 11: Determine the effects of the SNVs</h1>
+
+<p>Run snpEff.</p>
+
+<pre><code>cd $top/k48/bwasw
+run-snpeff HS0674-contigs.var.vcf.gz &gt;HS0674-contigs.var.snpeff
+</code></pre>
+
+<p>1 min, 1.0 GB RAM</p>
+
+<p>View the output of snpEff in a text editor.</p>
+
+<pre><code>gview HS0674-contigs.var.snpeff
+</code></pre>
+
+<p>Count the number of SNVs in each category of effect.</p>
+
+<pre><code>sort -uk1,2 HS0674-contigs.var.snpeff |cut -f16 |cut -d: -f1 |sort |uniq -c |sort -rn
+</code></pre>
+
+<p>Find all the coding SNVs.</p>
+
+<pre><code>grep CODING HS0674-contigs.var.snpeff |cut -f1-4,16-18 |uniq
+</code></pre>
+
+<p>Find the non-synonymous SNV. What is its location?</p>
+
+<blockquote>
+  <p>chr3:187,416,719</p>
+</blockquote>
+
+<p>What is its dbSNP rs ID? (hint: use IGV or the UCSC genome browser)</p>
+
+<blockquote>
+  <p>rs11707167</p>
+</blockquote>
+
+<p>Open dbSNP in a web browser.</p>
+
+<pre><code>http://www.ncbi.nlm.nih.gov/projects/SNP/
+</code></pre>
+
+<p>What is the minor allele frequency (MAF) of this SNP?</p>
+
+<blockquote>
+  <p>T=0.4716</p>
+</blockquote>
+
+<h1>Exercise 12: Compare the assembly variants to the read-alignment variants (optional)</h1>
+
+<p>Browse the variants called by both methods using IGV.</p>
+
+<p>Start IGV.</p>
+
+<pre><code>javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+</code></pre>
+
+<p>Select:</p>
+
+<pre><code>File-&gt;Load from File... k48/bwasw/HS0674-contigs.bam
+File-&gt;Load from File... k48/bwasw/HS0674-contigs.var.vcf.gz
+File-&gt;Load from File... bwa/HS0674.var.vcf.gz
+</code></pre>
+
+<p>Go to the region chr3:186,648,960</p>
+
+<p>Is the SNV called by both methods?</p>
+
+<blockquote>
+  <p>Yes.</p>
+</blockquote>
+
+<p>Is the insertion called by both methods?</p>
+
+<blockquote>
+  <p>No, the insertion is called only by the assembly.</p>
+</blockquote>
+
+<p>Hover the mouse cursor over the insertion to see the inserted sequence.
+What is the inserted sequence?</p>
+
+<blockquote>
+  <p>TCTGGGTTCCTTCAAATCCTGCCT</p>
+</blockquote>
+
+<p>Compare the inserted sequence to the reference sequence at this
+location. What sequence do the inserted sequence and the reference
+sequence have in common?</p>
+
+<blockquote>
+  <p>The insertion duplicates this 8-bp sequence: TCTGGGTT</p>
+</blockquote>
+
+<p>Load the alignments of the reads to the reference.</p>
+
+<pre><code>File-&gt;Load from File... bwa/30CJCAAXX_4.bam
+</code></pre>
+
+<p>The aligned reads do not show the insertion, but the alignments that
+span the insertion have mismatches at the end of the alignment.
+Do those mismatched bases agree with the inserted sequence?</p>
+
+<blockquote>
+  <p>Yes, the mismatched bases show CT at the 5' end and CC
+at the 3' end, which agree with the inserted sequence.</p>
+</blockquote>
+
+<h1>Exercise 13: Align the reads to the contigs using BWA (optional)</h1>
+
+<p>Run BWA.</p>
+
+<pre><code>cd $top
+mkdir k48/bwa
+cd k48/bwa
+bwa index ../HS0674-contigs.fa
+ref=../HS0674-contigs.fa run-bwa 2&gt;&amp;1 |tee bwa.log
+</code></pre>
+
+<p>12 min, 200 MB RAM, 3 GB disk space</p>
+
+<p>Index the assembly FASTA file.</p>
+
+<pre><code>samtools faidx ../HS0674-contigs.fa
+</code></pre>
+
+<p>Browse the BAM file using samtools tview.</p>
+
+<pre><code>samtools tview 30CJCAAXX_4.bam ../HS0674-contigs.fa
+</code></pre>
+
+<p>Browse the BAM file using IGV.</p>
+
+<pre><code>File-&gt;Import Genome... k48/HS0674-contigs.fa
+File-&gt;Load from File... k48/bwa/30CJCAAXX_4.bam
+</code></pre>
+
+<p>Find a scaffold gap on the largest contig.
+Find the two contigs that have consistent mate pairs joining them.</p>
+
+<p><a href="http://githalytics.com/sjackman/abyss-activity"><img src="https://cruel-carlota.pagodabox.com/f8201d20af390015a0e171ecfe57738f" alt="githalytics.com alpha" title="githalytics.com" /></a></p>
+</article>
+</div>
+</body>
+</html>
