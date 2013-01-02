@@ -124,9 +124,14 @@ Check that the tools are installed in the PATH.
 	which abyss-fac abyss-pe bcftools bgzip bwa java samtools tabix vcfutils.pl
 	ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/hg37
 
-Download the workshop scripts.
+Download the workshop scripts using git, if you have it installed.
 
-	wget -P bin ftp://ftp.bcgsc.ca/public/sjackman/bin/*
+	git clone git://github.com/sjackman/abyss-activity.git .
+
+If you do not have git installed, use wget.
+
+	wget https://github.com/sjackman/abyss-activity/archive/master.tar.gz
+	tar --strip 1 -zxf master.tar.gz
 
 Check that the workshop scripts are in the PATH.
 
