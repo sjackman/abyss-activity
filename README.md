@@ -84,6 +84,15 @@ Install snpEff.
 	unzip -d snpEff_3_1 snpEff_v3_1_GRCh37.68.zip
 	echo "data_dir=$PWD/snpEff_3_1/data" >>snpEff_3_1/snpEff.config
 
+Install the software on Ubuntu and Debian
+-----------------------------------------
+
+Install ABySS, BWA, samtools and tabix.
+
+	sudo apt-get install abyss bwa samtools tabix
+
+Install snpEff using the instructions above for Mac OS X.
+
 Set up the environment
 ----------------------
 
