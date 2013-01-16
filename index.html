@@ -126,36 +126,10 @@ echo "data_dir=$PWD/snpEff_3_1/data" &gt;&gt;snpEff_3_1/snpEff.config
 
 <h2>Set up the environment</h2>
 
-<p>Create a working directory and edit the file <code>environment</code>.</p>
+<p>Create a working directory.</p>
 
-<pre><code>mkdir -p ~/abyss
+<pre><code>mkdir ~/abyss
 cd ~/abyss
-gvim environment
-</code></pre>
-
-<p>This shell script will set environment variables to point to the
-location of the software.</p>
-
-<pre><code>#!/bin/sh
-export top=~/abyss
-PATH=$top/bin:$PATH
-export snpeff=$top/snpEff_3_1
-export ref=$top/chr3.fa
-</code></pre>
-
-<p>Each time you open a new terminal, you will need to run the following
-two commands. Change to the working directory and source the
-environment script:</p>
-
-<pre><code>cd ~/abyss
-source environment
-</code></pre>
-
-<p>Check that the tools are installed in the PATH.</p>
-
-<pre><code>source environment
-which abyss-fac abyss-pe bcftools bgzip bwa java samtools tabix vcfutils.pl
-ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/hg37
 </code></pre>
 
 <p>Download the workshop scripts using git, if you have it installed.</p>
@@ -167,6 +141,23 @@ ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/hg37
 
 <pre><code>wget https://github.com/sjackman/abyss-activity/archive/master.tar.gz
 tar --strip 1 -zxf master.tar.gz
+</code></pre>
+
+<p>The shell script named <code>environment</code> will set environment variables
+that specify the location of the installed software. Each time that
+you open a new terminal, you will need to run the following two
+commands to change to the working directory and source the environment
+script:</p>
+
+<pre><code>cd ~/abyss
+source environment
+</code></pre>
+
+<p>Check that the tools are installed in the PATH.</p>
+
+<pre><code>source environment
+which abyss-fac abyss-pe bcftools bgzip bwa java samtools tabix vcfutils.pl
+ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/hg37
 </code></pre>
 
 <p>Check that the workshop scripts are in the PATH.</p>

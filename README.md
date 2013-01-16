@@ -96,33 +96,10 @@ Install snpEff using the instructions above for Mac OS X.
 Set up the environment
 ----------------------
 
-Create a working directory and edit the file `environment`.
+Create a working directory.
 
-	mkdir -p ~/abyss
+	mkdir ~/abyss
 	cd ~/abyss
-	gvim environment
-
-This shell script will set environment variables to point to the
-location of the software.
-
-	#!/bin/sh
-	export top=~/abyss
-	PATH=$top/bin:$PATH
-	export snpeff=$top/snpEff_3_1
-	export ref=$top/chr3.fa
-
-Each time you open a new terminal, you will need to run the following
-two commands. Change to the working directory and source the
-environment script:
-
-	cd ~/abyss
-	source environment
-
-Check that the tools are installed in the PATH.
-
-	source environment
-	which abyss-fac abyss-pe bcftools bgzip bwa java samtools tabix vcfutils.pl
-	ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/hg37
 
 Download the workshop scripts using git, if you have it installed.
 
@@ -132,6 +109,21 @@ If you do not have git installed, use wget.
 
 	wget https://github.com/sjackman/abyss-activity/archive/master.tar.gz
 	tar --strip 1 -zxf master.tar.gz
+
+The shell script named `environment` will set environment variables
+that specify the location of the installed software. Each time that
+you open a new terminal, you will need to run the following two
+commands to change to the working directory and source the environment
+script:
+
+	cd ~/abyss
+	source environment
+
+Check that the tools are installed in the PATH.
+
+	source environment
+	which abyss-fac abyss-pe bcftools bgzip bwa java samtools tabix vcfutils.pl
+	ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/hg37
 
 Check that the workshop scripts are in the PATH.
 
