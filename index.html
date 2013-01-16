@@ -104,11 +104,17 @@ http://sourceforge.net/projects/samtools/files/tabix</li>
 brew install abyss bwa samtools tabix
 </code></pre>
 
+<p>Install IGV. Close IGV once it opens.</p>
+
+<pre><code>mkdir ~/abyss
+cd ~/abyss
+wget http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+javaws igv.jnlp
+</code></pre>
+
 <p>Install snpEff.</p>
 
-<pre><code>mkdir -p ~/abyss
-cd ~/abyss
-wget http://downloads.sourceforge.net/project/snpeff/snpEff_v3_1_core.zip
+<pre><code>wget http://downloads.sourceforge.net/project/snpeff/snpEff_v3_1_core.zip
 unzip snpEff_v3_1_core.zip
 wget http://downloads.sourceforge.net/project/snpeff/databases/v3_1/snpEff_v3_1_GRCh37.68.zip
 unzip -d snpEff_3_1 snpEff_v3_1_GRCh37.68.zip
@@ -122,7 +128,7 @@ echo "data_dir=$PWD/snpEff_3_1/data" &gt;&gt;snpEff_3_1/snpEff.config
 <pre><code>sudo apt-get install abyss bwa samtools tabix
 </code></pre>
 
-<p>Install snpEff using the instructions above for Mac OS X.</p>
+<p>Install IGV and snpEff using the instructions above for Mac OS X.</p>
 
 <h2>Set up the environment</h2>
 
@@ -134,7 +140,9 @@ cd ~/abyss
 
 <p>Download the workshop scripts using git, if you have it installed.</p>
 
-<pre><code>git clone git://github.com/sjackman/abyss-activity.git .
+<pre><code>git clone git://github.com/sjackman/abyss-activity.git
+mv abyss-activity/* abyss-activity/.git .
+rmdir abyss-activity
 </code></pre>
 
 <p>If you do not have git installed, use wget.</p>
@@ -171,18 +179,18 @@ ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/hg37
 wget ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_2.fq.gz
 </code></pre>
 
-<h1>Exercise 0: Index the reference using BWA</h1>
-
 <p>Download the reference file of Human chromosome 3.</p>
 
-<pre><code>cd $top
-wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr3.fa.gz
+<pre><code>wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr3.fa.gz
 gunzip chr3.fa.gz
 </code></pre>
 
+<h1>Exercise 0: Index the reference using BWA</h1>
+
 <p>Index the reference file.</p>
 
-<pre><code>bwa index $ref
+<pre><code>cd $top
+bwa index $ref
 </code></pre>
 
 <p>8 min, 1 GB RAM, 260 MB disk space</p>

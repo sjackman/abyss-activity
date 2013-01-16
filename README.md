@@ -74,10 +74,15 @@ Install ABySS, BWA, samtools and tabix using Homebrew.
 	brew tap homebrew/science
 	brew install abyss bwa samtools tabix
 
+Install IGV. Close IGV once it opens.
+
+	mkdir ~/abyss
+	cd ~/abyss
+	wget http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+	javaws igv.jnlp
+
 Install snpEff.
 
-	mkdir -p ~/abyss
-	cd ~/abyss
 	wget http://downloads.sourceforge.net/project/snpeff/snpEff_v3_1_core.zip
 	unzip snpEff_v3_1_core.zip
 	wget http://downloads.sourceforge.net/project/snpeff/databases/v3_1/snpEff_v3_1_GRCh37.68.zip
@@ -91,7 +96,7 @@ Install ABySS, BWA, samtools and tabix.
 
 	sudo apt-get install abyss bwa samtools tabix
 
-Install snpEff using the instructions above for Mac OS X.
+Install IGV and snpEff using the instructions above for Mac OS X.
 
 Set up the environment
 ----------------------
@@ -103,7 +108,9 @@ Create a working directory.
 
 Download the workshop scripts using git, if you have it installed.
 
-	git clone git://github.com/sjackman/abyss-activity.git .
+	git clone git://github.com/sjackman/abyss-activity.git
+	mv abyss-activity/* abyss-activity/.git .
+	rmdir abyss-activity
 
 If you do not have git installed, use wget.
 
@@ -134,17 +141,17 @@ Download the FASTQ files.
 	wget ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_1.fq.gz
 	wget ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_2.fq.gz
 
-Exercise 0: Index the reference using BWA
-=========================================
-
 Download the reference file of Human chromosome 3.
 
-	cd $top
 	wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr3.fa.gz
 	gunzip chr3.fa.gz
 
+Exercise 0: Index the reference using BWA
+=========================================
+
 Index the reference file.
 
+	cd $top
 	bwa index $ref
 
 8 min, 1 GB RAM, 260 MB disk space
