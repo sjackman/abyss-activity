@@ -56,7 +56,7 @@ The following software is required:
 * Java 6: execute Java programs
 	http://www.java.com
 * samtools 0.1.18: manipulate SAM/BAM files
-	http://samtools.sourceforge.net
+	https://github.com/samtools/samtools
 * snpEff 3.1: determine the effect of SNPs
 	http://snpeff.sourceforge.net
 * tabix 0.2.5: index tab-delimited files
