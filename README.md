@@ -65,12 +65,15 @@ The following software is required:
 Install the software on Mac OS X
 --------------------------------
 
+Install [Xcode](macappstores://itunes.apple.com/us/app/xcode/id497799835).
+
 Install [Homebrew](http://mxcl.github.com/homebrew/).
 
 	ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
 
 Install ABySS, BWA, samtools and tabix using Homebrew.
 
+	brew install git
 	brew tap homebrew/science
 	brew install abyss bwa samtools tabix
 
