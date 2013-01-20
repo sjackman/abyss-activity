@@ -131,7 +131,7 @@ Check that the tools are installed in the PATH.
 
 	source environment
 	which abyss-fac abyss-pe bcftools bgzip bwa java samtools tabix vcfutils.pl
-	ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/hg37
+	ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/GRCh37.68
 
 Check that the workshop scripts are in the PATH.
 
