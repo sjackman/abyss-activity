@@ -95,6 +95,7 @@ Install the software on Ubuntu and Debian
 Install ABySS, BWA, samtools and tabix.
 
 	sudo apt-get install abyss bwa samtools tabix
+	sudo ln -s /usr/lib/abyss/abyss-fac /usr/share/samtools/vcfutils.pl /usr/local/bin/
 
 Install IGV and snpEff using the instructions above for Mac OS X.
 
