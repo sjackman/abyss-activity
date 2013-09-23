@@ -88,6 +88,7 @@ Install snpEff.
 
 	wget http://downloads.sourceforge.net/project/snpeff/snpEff_v3_1_core.zip
 	unzip snpEff_v3_1_core.zip
+	mv snpEff/snpEff_3_1 .
 	wget http://downloads.sourceforge.net/project/snpeff/databases/v3_1/snpEff_v3_1_GRCh37.68.zip
 	unzip -d snpEff_3_1 snpEff_v3_1_GRCh37.68.zip
 	echo "data_dir=$PWD/snpEff_3_1/data" >>snpEff_3_1/snpEff.config
