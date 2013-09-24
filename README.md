@@ -67,6 +67,9 @@ Install the software on Mac OS X
 
 Install [Xcode](macappstores://itunes.apple.com/us/app/xcode/id497799835).
 
+Open Xcode, select
+"Xcode -> Preferences -> Downloads -> Command Line Tools -> Install".
+
 Install [Homebrew](http://mxcl.github.com/homebrew/).
 
 	ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
