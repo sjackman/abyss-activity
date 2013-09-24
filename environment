@@ -1,6 +1,6 @@
 #!/bin/sh
 export top=$PWD
 PATH=$top/bin:$PATH
-export snpeff=$top/snpEff_3_1
+export snpeff=$top/snpEff
 export ref=$top/chr3.fa
 which gwc &>/dev/null && alias wc=`which gwc`

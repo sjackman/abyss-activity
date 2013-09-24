@@ -47,19 +47,19 @@ The total run time of the tools alone is approximately 70 minutes on a
 2-core 2 GHz system. 4 GB of RAM and 5 GB of disk space is required.
 The following software is required:
 
-* ABySS 1.3.4: assemble short reads *de novo*
+* ABySS 1.3.6: assemble short reads *de novo*
 	http://www.bcgsc.ca/platform/bioinfo/software/abyss
-* BWA 0.6.2: align short reads
+* BWA 0.7.5a: align short reads
 	http://bio-bwa.sourceforge.net
-* IGV 2.2: visualize a genome
+* IGV 2.3: visualize a genome
 	http://www.broadinstitute.org/igv
-* Java 6: execute Java programs
+* Java 7: execute Java programs
 	http://www.java.com
-* samtools 0.1.18: manipulate SAM/BAM files
+* samtools 0.1.19: manipulate SAM/BAM files
 	https://github.com/samtools/samtools
-* snpEff 3.1: determine the effect of SNPs
+* snpEff 3.3H: determine the effect of SNPs
 	http://snpeff.sourceforge.net
-* tabix 0.2.5: index tab-delimited files
+* tabix 0.2.6: index tab-delimited files
 	http://sourceforge.net/projects/samtools/files/tabix
 
 Install the software on Mac OS X
@@ -89,12 +89,11 @@ Install IGV. Close IGV once it opens.
 
 Install snpEff.
 
-	wget http://downloads.sourceforge.net/project/snpeff/snpEff_v3_1_core.zip
-	unzip snpEff_v3_1_core.zip
-	mv snpEff/snpEff_3_1 .
-	wget http://downloads.sourceforge.net/project/snpeff/databases/v3_1/snpEff_v3_1_GRCh37.68.zip
-	unzip -d snpEff_3_1 snpEff_v3_1_GRCh37.68.zip
-	echo "data_dir=$PWD/snpEff_3_1/data" >>snpEff_3_1/snpEff.config
+	wget http://downloads.sourceforge.net/project/snpeff/snpEff_v3_3_core.zip
+	unzip snpEff_v3_3_core.zip
+	wget http://downloads.sourceforge.net/project/snpeff/databases/v3_3/snpEff_v3_3_GRCh37.72.zip
+	unzip -d snpEff snpEff_v3_3_GRCh37.72.zip
+	echo "data_dir=$PWD/snpEff/data" >>snpEff/snpEff.config
 
 Install the software on Ubuntu and Debian
 -----------------------------------------
@@ -138,7 +137,7 @@ Check that the tools are installed in the PATH.
 
 	source environment
 	which abyss-fac abyss-pe bcftools bgzip bwa gview java samtools tabix vcfutils.pl wget
-	ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/GRCh37.68
+	ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/GRCh37.72
 
 Check that the workshop scripts are in the PATH.
 
@@ -501,7 +500,7 @@ Run snpEff.
 	cd $top/k48/bwasw
 	run-snpeff HS0674-contigs.var.vcf.gz >HS0674-contigs.var.snpeff
 
-1 min, 1.0 GB RAM
+1 min, 2.8 GB RAM
 
 View the output of snpEff in a text editor.
 
