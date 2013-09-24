@@ -508,7 +508,7 @@ View the output of snpEff in a text editor.
 
 Count the number of SNVs in each category of effect.
 
-	sort -uk1,2 HS0674-contigs.var.snpeff |cut -f16 |cut -d: -f1 |sort |uniq -c |sort -rn
+	cut -f1,2,16 HS0674-contigs.var.snpeff |cut -d: -f1 |sort -u |cut -f3 |sort |uniq -c
 
 Find all the coding SNVs.
 
