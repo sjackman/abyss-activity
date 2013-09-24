@@ -4,10 +4,10 @@ set -eux
 source environment
 time run-abyss 2>&1 |tee abyss.log
 
-mkdir k48/bwasw
-cd k48/bwasw
+mkdir k48/bwamem
+cd k48/bwamem
 ln -s ../HS0674-contigs.fa .
-time run-bwasw
+time run-bwamem
 
 cd $top
 mkdir bwa
@@ -17,8 +17,8 @@ time run-bwa 2>&1 |tee bwa.log
 cd $top/bwa
 time run-bcftools 2>&1 |tee bcftools.log
 
-cd $top/k48/bwasw
+cd $top/k48/bwamem
 time run-bcftools-assembly 2>&1 |tee bcftools.log
 
-cd $top/k48/bwasw
+cd $top/k48/bwamem
 time run-snpeff HS0674-contigs.var.vcf.gz >HS0674-contigs.var.snpeff

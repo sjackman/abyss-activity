@@ -9,12 +9,12 @@ Purpose
 In this lab we will use ABySS to assemble a 200 kbp bacterial
 artificial chromosome (BAC). The data set is one lane of paired-end
 reads from the Illumina platform. The assembled contigs are aligned to
-the human reference genome using BWA-SW and variants are called using
+the human reference genome using BWA-MEM and variants are called using
 bcftools. IGV is used to visualize these alignments and variants.
 snpEff is used to determine the effects of these variants.
 
 After this lab, you will have learned how to use ABySS to assemble a
-small genome, use BWA and BWA-SW to align reads and contigs to a
+small genome, use BWA and BWA-MEM to align reads and contigs to a
 reference genome, use IGV to visualize these alignments, and use bcftools
 and snpEff to call variants and determine their effect.
 
@@ -27,7 +27,7 @@ Contents
 * [Exercise 2: Inspect the reads](#exercise-2-inspect-the-reads)
 * [Exercise 3: Assemble the reads into contigs using ABySS](#exercise-3-assemble-the-reads-into-contigs-using-abyss)
 * [Exercise 4: Align the contigs to the reference using web BLAT](#exercise-4-align-the-contigs-to-the-reference-using-web-blat)
-* [Exercise 5: Align the contigs to the reference using BWA-SW](#exercise-5-align-the-contigs-to-the-reference-using-bwa-sw)
+* [Exercise 5: Align the contigs to the reference using BWA-MEM](#exercise-5-align-the-contigs-to-the-reference-using-bwa-mem)
 * [Exercise 6: Browse the contig to reference alignments using samtools tview](#exercise-6-browse-the-contig-to-reference-alignments-using-samtools-tview)
 * [Exercise 7: Browse the contig to reference alignments using IGV](#exercise-7-browse-the-contig-to-reference-alignments-using-igv)
 * [Exercise 8: View the contig to reference alignments SAM file](#exercise-8-view-the-contig-to-reference-alignments-sam-file)
@@ -141,7 +141,7 @@ Check that the tools are installed in the PATH.
 
 Check that the workshop scripts are in the PATH.
 
-	which run-abyss run-bwa run-bwasw run-snpeff run-bcftools run-bcftools-assembly
+	which run-abyss run-bwa run-bwamem run-snpeff run-bcftools run-bcftools-assembly
 
 Download the FASTQ files.
 
@@ -354,31 +354,31 @@ What is the cause of this chimeric contig?
 
 > This contig contains the cloning vector as well as the human insert.
 
-Exercise 5: Align the contigs to the reference using BWA-SW
-===========================================================
+Exercise 5: Align the contigs to the reference using BWA-MEM
+============================================================
 
-Warning: do not start BWA-SW until BWA has completed unless your
+Warning: do not start BWA-MEM until BWA has completed unless your
 machine has at least 2 GB of RAM.
-Run BWA-SW.
+Run BWA-MEM.
 
 	cd $top
-	mkdir k48/bwasw
-	cd k48/bwasw
+	mkdir k48/bwamem
+	cd k48/bwamem
 	ln -s ../HS0674-contigs.fa .
-	run-bwasw
+	run-bwamem
 
 1 min, 800 MB RAM, 1 MB disk space
 
 While the alignment is running, view the script in a text editor.
 
-	gview $top/bin/run-bwasw
+	gview $top/bin/run-bwamem
 
 Exercise 6: Browse the contig to reference alignments using samtools tview
 ==========================================================================
 
 Run samtools tview.
 
-	cd $top/k48/bwasw
+	cd $top/k48/bwamem
 	samtools tview HS0674-contigs.bam $ref
 
 Go to the region chr3:186,648,940
@@ -412,7 +412,7 @@ Start IGV.
 Select "View -> Preferences... -> Alignments" and change
 "Visibility range threshold (kb)" to 1000.
 Select the "Genomes -> Load Genome From Server... -> Human hg19".
-Then select "File->Load from File..." and "k48/bwasw/HS0674-contigs.bam"
+Then select "File->Load from File..." and "k48/bwamem/HS0674-contigs.bam"
 Go to the region chr3:186,600,000-187,600,000 by entering it into
 the box labeled "Go".
 IGV may take up to a minute to load.
@@ -437,7 +437,7 @@ Exercise 8: View the contig to reference alignments SAM file
 
 View the SAM file in a text editor. Disable line wrap.
 
-	cd $top/k48/bwasw
+	cd $top/k48/bwamem
 	gview HS0674-contigs.sam
 
 The contig ID is given in the first column, and the position of the
@@ -485,11 +485,11 @@ Exercise 10: Call variants of the contigs-to-reference alignments using bcftools
 
 Run bcftools.
 
-	cd $top/k48/bwasw
+	cd $top/k48/bwamem
 	run-bcftools-assembly 2>&1 |tee bcftools.log
 
 Browse the variants using IGV.
-Select "File->Load from File... k48/bwasw/HS0674-contigs.var.vcf.gz"
+Select "File->Load from File... k48/bwamem/HS0674-contigs.var.vcf.gz"
 Right-click on the VCF track and select "Color by Allele".
 
 Exercise 11: Determine the effects of the SNVs
@@ -497,7 +497,7 @@ Exercise 11: Determine the effects of the SNVs
 
 Run snpEff.
 
-	cd $top/k48/bwasw
+	cd $top/k48/bwamem
 	run-snpeff HS0674-contigs.var.vcf.gz >HS0674-contigs.var.snpeff
 
 1 min, 2.8 GB RAM
@@ -541,8 +541,8 @@ Start IGV.
 
 Select:
 
-	File->Load from File... k48/bwasw/HS0674-contigs.bam
-	File->Load from File... k48/bwasw/HS0674-contigs.var.vcf.gz
+	File->Load from File... k48/bwamem/HS0674-contigs.bam
+	File->Load from File... k48/bwamem/HS0674-contigs.var.vcf.gz
 	File->Load from File... bwa/HS0674.var.vcf.gz
 
 Go to the region chr3:186,648,960
