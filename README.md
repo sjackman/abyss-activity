@@ -76,7 +76,7 @@ Install [Homebrew](http://mxcl.github.com/homebrew/).
 
 Install ABySS, BWA, samtools and tabix using Homebrew.
 
-	brew install git
+	brew install coreutils git macvim wget
 	brew tap homebrew/science
 	brew install abyss bwa samtools tabix
 
@@ -137,7 +137,7 @@ script:
 Check that the tools are installed in the PATH.
 
 	source environment
-	which abyss-fac abyss-pe bcftools bgzip bwa java samtools tabix vcfutils.pl
+	which abyss-fac abyss-pe bcftools bgzip bwa gview java samtools tabix vcfutils.pl wget
 	ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/GRCh37.68
 
 Check that the workshop scripts are in the PATH.
