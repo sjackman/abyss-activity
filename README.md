@@ -1,10 +1,8 @@
-De novo assembly of Illumina reads using ABySS and alignment using BWA
-======================================================================
+# De novo assembly of Illumina reads using ABySS and alignment using BWA
 
-This workshop is designed by Shaun Jackman <sjackman@gmail.com>.
+This workshop is designed by [Shaun Jackman](http://sjackman.ca) [@sjackman](https://twitter.com/sjackman).
 
-Purpose
-=======
+# Purpose
 
 In this lab we will use ABySS to assemble a 200 kbp bacterial
 artificial chromosome (BAC). The data set is one lane of paired-end
@@ -18,8 +16,7 @@ small genome, use BWA and BWA-MEM to align reads and contigs to a
 reference genome, use IGV to visualize these alignments, and use bcftools
 and snpEff to call variants and determine their effect.
 
-Contents
-========
+# Contents
 
 * [Getting Started](#getting-started)
 * [Exercise 0: Index the reference using BWA](#exercise-0-index-the-reference-using-bwa)
@@ -37,11 +34,9 @@ Contents
 * [Exercise 12: Compare the assembly variants to the read-alignment variants (optional)](#exercise-12-compare-the-assembly-variants-to-the-read-alignment-variants-optional)
 * [Exercise 13: Align the reads to the contigs using BWA (optional)](#exercise-13-align-the-reads-to-the-contigs-using-bwa-optional)
 
-Getting Started
-===============
+# Getting Started
 
-System requirements
--------------------
+## System requirements
 
 The total run time of the tools alone is approximately 70 minutes on a
 2-core 2 GHz system. 4 GB of RAM and 5 GB of disk space is required.
@@ -62,8 +57,7 @@ The following software is required:
 * tabix 0.2.6: index tab-delimited files
 	http://sourceforge.net/projects/samtools/files/tabix
 
-Install the software on Mac OS X
---------------------------------
+## Install the software on Mac OS X
 
 Install [Xcode](macappstores://itunes.apple.com/us/app/xcode/id497799835).
 
@@ -95,8 +89,7 @@ Install snpEff.
 	unzip -d snpEff snpEff_v3_3_GRCh37.72.zip
 	echo "data_dir=$PWD/snpEff/data" >>snpEff/snpEff.config
 
-Install the software on Ubuntu and Debian
------------------------------------------
+## Install the software on Ubuntu and Debian
 
 Install ABySS, BWA, samtools and tabix.
 
@@ -105,8 +98,7 @@ Install ABySS, BWA, samtools and tabix.
 
 Install IGV and snpEff using the instructions above for Mac OS X.
 
-Set up the environment
-----------------------
+## Set up the environment
 
 Create a working directory.
 
@@ -153,8 +145,7 @@ Download the reference file of Human chromosome 3.
 	wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr3.fa.gz
 	gunzip chr3.fa.gz
 
-Exercise 0: Index the reference using BWA
-=========================================
+# Exercise 0: Index the reference using BWA
 
 Index the reference file.
 
@@ -163,8 +154,7 @@ Index the reference file.
 
 8 min, 1 GB RAM, 260 MB disk space
 
-Exercise 1: Align the reads to the reference using BWA (optional)
-=================================================================
+# Exercise 1: Align the reads to the reference using BWA (optional)
 
 Run BWA.
 
@@ -182,8 +172,7 @@ environment. In the new terminal window type:
 	cd ~/abyss
 	source environment
 
-Exercise 2: Inspect the reads
-=============================
+# Exercise 2: Inspect the reads
 
 There are two FASTQ files for this one lane of paired-end Illumina
 data: one file for the forward reads and one file for the reverse
@@ -219,8 +208,7 @@ Assuming the BAC is 200 kbp, what is the depth of coverage?
 
 > 510868100/200000 = 2554 fold coverage
 
-Exercise 3: Assemble the reads into contigs using ABySS
-=======================================================
+# Exercise 3: Assemble the reads into contigs using ABySS
 
 Run the assembly.
 
@@ -289,8 +277,7 @@ What is the median fragment size and standard deviation of this library?
 
 > median = 204 bp, sd = 18 bp
 
-Exercise 4: Align the contigs to the reference using web BLAT
-=============================================================
+# Exercise 4: Align the contigs to the reference using web BLAT
 
 Open BLAT in a web browser.
 
@@ -354,8 +341,7 @@ What is the cause of this chimeric contig?
 
 > This contig contains the cloning vector as well as the human insert.
 
-Exercise 5: Align the contigs to the reference using BWA-MEM
-============================================================
+# Exercise 5: Align the contigs to the reference using BWA-MEM
 
 Warning: do not start BWA-MEM until BWA has completed unless your
 machine has at least 2 GB of RAM.
@@ -373,8 +359,7 @@ While the alignment is running, view the script in a text editor.
 
 	gview $top/bin/run-bwamem
 
-Exercise 6: Browse the contig to reference alignments using samtools tview
-==========================================================================
+# Exercise 6: Browse the contig to reference alignments using samtools tview
 
 Run samtools tview.
 
@@ -402,8 +387,7 @@ How many Ns should there be for the size of the gap to agree with the reference?
 
 > 16 Ns
 
-Exercise 7: Browse the contig to reference alignments using IGV
-===============================================================
+# Exercise 7: Browse the contig to reference alignments using IGV
 
 Start IGV.
 
@@ -432,8 +416,7 @@ Bonus: Find a coding SNV. What is its dbSNP rs ID?
 > rs11707167 (chr3:187,416,719),
 > rs1056932 (chr3:187,447,032)
 
-Exercise 8: View the contig to reference alignments SAM file
-============================================================
+# Exercise 8: View the contig to reference alignments SAM file
 
 View the SAM file in a text editor. Disable line wrap.
 
@@ -466,8 +449,7 @@ Which two genes are fused as a result of this rearrangement?
 
 > ST6GAL1 and BCL6
 
-Exercise 9: Call variants of the reads-to-reference alignments using bcftools (optional)
-=============================================================================================
+# Exercise 9: Call variants of the reads-to-reference alignments using bcftools (optional)
 
 Check that BWA has completed aligning the reads to the reference.
 Run bcftools in this terminal.
@@ -481,8 +463,7 @@ While bcftools is running, view the script in a text editor.
 
 	gview $top/bin/run-bcftools
 
-Exercise 10: Call variants of the contigs-to-reference alignments using bcftools
-===============================================================================
+# Exercise 10: Call variants of the contigs-to-reference alignments using bcftools
 
 Run bcftools.
 
@@ -493,8 +474,7 @@ Browse the variants using IGV.
 Select "File->Load from File... k48/bwamem/HS0674-contigs.var.vcf.gz"
 Right-click on the VCF track and select "Color by Allele".
 
-Exercise 11: Determine the effects of the SNVs
-==============================================
+# Exercise 11: Determine the effects of the SNVs
 
 Run snpEff.
 
@@ -531,8 +511,7 @@ What is the minor allele frequency (MAF) of this SNP?
 
 > T=0.4716
 
-Exercise 12: Compare the assembly variants to the read-alignment variants (optional)
-====================================================================================
+# Exercise 12: Compare the assembly variants to the read-alignment variants (optional)
 
 Browse the variants called by both methods using IGV.
 
@@ -578,8 +557,7 @@ Do those mismatched bases agree with the inserted sequence?
 > Yes, the mismatched bases show CT at the 5' end and CC
 > at the 3' end, which agree with the inserted sequence.
 
-Exercise 13: Align the reads to the contigs using BWA (optional)
-================================================================
+# Exercise 13: Align the reads to the contigs using BWA (optional)
 
 Run BWA.
 
@@ -606,5 +584,3 @@ Browse the BAM file using IGV.
 
 Find a scaffold gap on the largest contig.
 Find the two contigs that have consistent mate pairs joining them.
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/f8201d20af390015a0e171ecfe57738f "githalytics.com")](http://githalytics.com/sjackman/abyss-activity)
