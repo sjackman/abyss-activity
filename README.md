@@ -155,7 +155,7 @@ Index the reference file.
 
 ```sh
 cd $top
-bwa index $ref
+bwa index chr3.fa
 ```
 
 8 min, 1 GB RAM, 260 MB disk space
@@ -166,9 +166,7 @@ Run BWA.
 
 ```sh
 cd $top
-mkdir bwa
-cd bwa
-run-bwa 2>&1 |tee bwa.log
+bwa mem -t2 chr3.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz >bwa.sam
 ```
 
 40 min, 250 MB RAM, 3 GB disk space
