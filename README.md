@@ -356,20 +356,10 @@ Warning: do not start BWA-MEM until BWA has completed unless your machine has at
 Run BWA-MEM.
 
 ```sh
-cd $top
-mkdir k48/bwamem
-cd k48/bwamem
-ln -s ../HS0674-contigs.fa .
-run-bwamem
+bwa mem -t2 chr3.fa k48/HS0674-contigs.fa >k48/HS0674-contigs.sam
 ```
 
 1 min, 800 MB RAM, 1 MB disk space
-
-While the alignment is running, view the script in a text editor.
-
-```sh
-gview $top/bin/run-bwamem
-```
 
 # Exercise 6: Browse the contig to reference alignments using samtools tview
 
