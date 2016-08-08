@@ -32,93 +32,87 @@ After this lab, you will have learned how to use ABySS to assemble a small genom
 
 The total run time of the tools alone is approximately 70 minutes on a 2-core 2 GHz system. 4 GB of RAM and 5 GB of disk space is required. The following software is required:
 
-* ABySS 1.3.6: assemble short reads *de novo*
-	http://www.bcgsc.ca/platform/bioinfo/software/abyss
-* BWA 0.7.5a: align short reads
-	http://bio-bwa.sourceforge.net
-* IGV 2.3: visualize a genome
-	http://www.broadinstitute.org/igv
-* Java 7: execute Java programs
-	http://www.java.com
-* samtools 0.1.19: manipulate SAM/BAM files
-	https://github.com/samtools/samtools
-* snpEff 3.3H: determine the effect of SNPs
-	http://snpeff.sourceforge.net
-* tabix 0.2.6: index tab-delimited files
-	http://sourceforge.net/projects/samtools/files/tabix
++ ABySS 1.9.0: genome sequence assembler for short reads
+  http://www.bcgsc.ca/platform/bioinfo/software/abyss
++ bcftools 1.3.1: manipulate VCF/BCF variant call files
+  http://www.htslib.org
++ BWA 0.7.15: align short reads and long contigs
+  http://bio-bwa.sourceforge.net
++ IGV 2.3.80: visualize a genome
+  http://www.broadinstitute.org/igv
++ Java 7 or later: execute Java programs
+  http://www.java.com
++ samtools 1.3.1: manipulate SAM/BAM alignment files
+  http://www.htslib.org
++ snpEff 4.2: determine the effect of SNVs
+  http://snpeff.sourceforge.net
 
-## Install the software on Mac OS X
+## Install the software on Mac OS
 
 Install [Xcode](macappstores://itunes.apple.com/us/app/xcode/id497799835).
 
 Open Xcode, select "Xcode -> Preferences -> Downloads -> Command Line Tools -> Install".
 
-Install [Homebrew](http://mxcl.github.com/homebrew/).
+Install [Homebrew](http://brew.sh).
 
 ```sh
-ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Install ABySS, BWA, samtools and tabix using Homebrew.
+Install GNU Coreutils and the text editor MacVim using Homebrew.
 
 ```sh
-brew install coreutils git macvim wget
+brew install coreutils
+brew cask install macvim
+```
+
+Install ABySS, BWA, samtools and snpEff using Homebrew.
+
+```sh
 brew tap homebrew/science
-brew install abyss bwa samtools tabix
+brew install abyss bcftools bwa igv samtools snpeff
 ```
 
-Install IGV. Close IGV once it opens.
+IGV may alternatively be installed using Java Web Start:
 
 ```sh
-mkdir ~/abyss
-cd ~/abyss
-wget http://www.broadinstitute.org/igv/projects/current/igv.jnlp
-javaws igv.jnlp
+javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
 ```
 
-Install snpEff.
+snpEff may alternatively be installed manually.
 
 ```sh
-wget http://downloads.sourceforge.net/project/snpeff/snpEff_v3_3_core.zip
-unzip snpEff_v3_3_core.zip
-wget http://downloads.sourceforge.net/project/snpeff/databases/v3_3/snpEff_v3_3_GRCh37.72.zip
-unzip -d snpEff snpEff_v3_3_GRCh37.72.zip
-echo "data_dir=$PWD/snpEff/data" >>snpEff/snpEff.config
+curl -LO http://downloads.sourceforge.net/project/snpeff/snpEff_v4_2_core.zip
+unzip snpEff_v4_2_core.zip
+curl -LO http://downloads.sourceforge.net/project/snpeff/databases/v4_2/snpEff_v4_2_GRCh38.82.zip
+unzip -d snpEff snpEff_v4_2_GRCh38.82.zip
 ```
 
-## Install the software on Ubuntu and Debian
+## Install the software on Ubuntu and Debian using `apt-get`
 
-Install ABySS, BWA, samtools and tabix.
+Install ABySS, bcftools, BWA, igv, and samtools.
 
 ```sh
-sudo apt-get install abyss bwa samtools tabix
-sudo ln -s /usr/lib/abyss/abyss-fac /usr/share/samtools/vcfutils.pl /usr/local/bin/
+sudo apt-get install abyss bcftools bwa igv samtools
+sudo ln -s /usr/lib/abyss/abyss-fac /usr/local/bin/
 ```
 
-Install IGV and snpEff using the instructions above for Mac OS X.
+Install snpEff using the instructions above for Mac OS.
 
 ## Set up the environment
-
-Create a working directory.
-
-```sh
-mkdir ~/abyss
-cd ~/abyss
-```
 
 Download the workshop scripts using git, if you have it installed.
 
 ```sh
-git clone git://github.com/sjackman/abyss-activity.git
-mv abyss-activity/* abyss-activity/.git .
-rmdir abyss-activity
+git clone git://github.com/sjackman/abyss-activity.git ~/abyss
 ```
 
-If you do not have git installed, use wget.
+If you do not have git installed, use curl.
 
 ```sh
-wget https://github.com/sjackman/abyss-activity/archive/master.tar.gz
-tar --strip 1 -zxf master.tar.gz
+mkdir ~/abyss
+cd ~/abyss
+curl -L https://github.com/sjackman/abyss-activity/archive/master.tar.gz | tar -zx --strip 1
 ```
 
 The shell script named `environment` will set environment variables that specify the location of the installed software. Each time that you open a new terminal, you will need to run the following two commands to change to the working directory and source the environment script:
@@ -132,8 +126,7 @@ Check that the tools are installed in the PATH.
 
 ```sh
 source environment
-which abyss-fac abyss-pe bcftools bgzip bwa gview java samtools tabix vcfutils.pl wget
-ls $snpeff/snpEff.jar $snpeff/snpEff.config $snpeff/data/GRCh37.72
+which abyss-fac abyss-pe bcftools bgzip bwa curl gview java samtools snpeff tabix vcfutils.pl
 ```
 
 Check that the workshop scripts are in the PATH.
@@ -145,14 +138,14 @@ which run-abyss run-bwa run-bwamem run-snpeff run-bcftools run-bcftools-assembly
 Download the FASTQ files.
 
 ```sh
-wget ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_1.fq.gz
-wget ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_2.fq.gz
+curl -LO ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_1.fq.gz
+curl -LO ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_2.fq.gz
 ```
 
 Download the reference file of Human chromosome 3.
 
 ```sh
-wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr3.fa.gz
+curl -LO http://hgdownload.cse.ucsc.edu/goldenpath/hg38/chromosomes/chr3.fa.gz
 gunzip chr3.fa.gz
 ```
 
