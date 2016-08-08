@@ -357,6 +357,8 @@ Run BWA-MEM.
 
 ```sh
 bwa mem -t2 chr3.fa k48/HS0674-contigs.fa >k48/HS0674-contigs.sam
+samtools sort -o k48/HS0674-contigs.bam k48/HS0674-contigs.sam
+samtools index k48/HS0674-contigs.bam
 ```
 
 1 min, 800 MB RAM, 1 MB disk space
@@ -366,29 +368,28 @@ bwa mem -t2 chr3.fa k48/HS0674-contigs.fa >k48/HS0674-contigs.sam
 Run samtools tview.
 
 ```sh
-cd $top/k48/bwamem
-samtools tview HS0674-contigs.bam $ref
+samtools tview k48/HS0674-contigs.bam chr3.fa
 ```
 
-Go to the region chr3:186,648,940
+Go to the region `chr3:186,931,150`
 
 ```
-g chr3:186,648,940
+g chr3:186,931,150
 ```
 
 What variants do you see?
 
 > a T/G SNV and a 24-bp insertion
 
-Go to the region chr3:186,676,730
+Go to the region `chr3:186,958,940`
 
 ```
-g chr3:186,676,730
+g chr3:186,958,940
 ```
 
 Notice the Ns in the contig sequence, indicating a scaffold gap. How many Ns are in the contig?
 
-> 20 Ns
+> 19 Ns
 
 How many Ns should there be for the size of the gap to agree with the reference?
 
