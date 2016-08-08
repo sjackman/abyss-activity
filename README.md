@@ -325,27 +325,29 @@ What are the nearest two genes?
 
 > SST and RTP2
 
-Set the "Common SNPs" track (in Variation and Repeats) to "pack". A SNV is displayed with a red line. Zoom in on a SNV. Is it in dbSNP?
+Set the "Common SNPs" track in Variation to "pack".
 
-Zoom in on the gap between the two contigs. Set the "RepeatMasker" track (in Variation and Repeats) to "full". What feature overlaps the gap that likely caused the assembly gap?
+A SNV between the assembled sequence and reference sequence is displayed with a red line. Zoom in on a SNV. Is it in dbSNP?
 
-> Simple repeat (TA)n
+Zoom in on the gap between the two contigs. Set the "RepeatMasker" track in Repeats to "full". What feature overlaps the gap that likely caused the assembly gap?
+
+> Simple_repeat (TA)n
 
 Zoom in to see the sequence of the feature.
 
-Zoom out to see the alignment of both contigs. Unaligned query sequence is shown with a thin purple line at the end of the alignment. The thin purple line can be difficult to see. Which contig has unaligned sequence at one end?
+Zoom out to see the alignment of both contigs. Unaligned query sequence is shown with a ridiculously thin purple line at the end of the alignment. The one-pixel-wide purple line is absurdly difficult to see. Which contig has unaligned sequence at one end?
 
 > the 16.5 kbp contig
 
 Select that contig, and copy the unaligned sequence to the clipboard. Aligned sequence is shown in blue upper-case characters, and unaligned sequence is shown in black lower-case characters. Open BLAST in a web browser: <http://blast.ncbi.nlm.nih.gov>
 
-Select "nucleotide blast". Select the database "Nucleotide collection (nr/nt)". Paste the sequence into the query box. Click BLAST. To what sequence is the best BLAST hit?
+Select "Nucleotide BLAST". Select the database "Nucleotide collection (nr/nt)". Paste the sequence into the query box. Click BLAST. Look at the first few best hits, and ignore hits to chimpanzee (*Pan troglodytes*) clones. What is the best alignment of our non-human contig fragment?
 
-> Cloning vector pTARBAC2.1
+> Cloning vector pTARBAC
 
 What is the cause of this chimeric contig?
 
-> This contig contains the cloning vector as well as the human insert.
+> This assembled contig contains both the BAC cloning vector and the human DNA insert.
 
 # Exercise 5: Align the contigs to the reference using BWA-MEM
 
