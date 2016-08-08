@@ -1,1 +1,1 @@
-brew 'markdown'
+brew 'pandoc'

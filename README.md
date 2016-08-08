@@ -1,6 +1,6 @@
 # De novo assembly of Illumina reads using ABySS and alignment using BWA
 
-This workshop is designed by [Shaun Jackman](http://sjackman.ca) [@sjackman](https://twitter.com/sjackman).
+This workshop is designed by [Shaun Jackman](http://sjackman.ca) [\@sjackman](https://twitter.com/sjackman).
 
 # Purpose
 

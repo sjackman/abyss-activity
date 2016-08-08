@@ -4,9 +4,14 @@ clean:
 	rm -f index.html
 
 .PHONY: clean all
+.DELETE_ON_ERROR:
+.SECONDARY:
 
-%.html: %.md %-header.html %-footer.html
-	(cat $*-header.html && markdown $< && cat $*-footer.html) >$@
+%-body.html: %-body.md
+	pandoc -o $@ $<
 
-index.md: README.md
-	ln -s $< $@
+%.html: %-header.html %-body.html %-footer.html
+	cat $^ >$@
+
+index-body.md: README.md
+	ln -sf $< $@
