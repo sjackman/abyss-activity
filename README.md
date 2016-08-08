@@ -184,20 +184,20 @@ There are two FASTQ files for this one lane of paired-end Illumina data: one fil
 
 ```sh
 cd $top
-gunzip -c 30CJCAAXX_4_1.fq.gz |head
+gunzip -c 30CJCAAXX_4_1.fq.gz | head
 ```
 
-How long are the reads? (hint: use `wc -L`)
+How long are the reads? (hint: use `awk '{print length}'`)
 
 > ```sh
-> gunzip -c 30CJCAAXX_4_1.fq.gz |head |wc -L
+> gunzip -c 30CJCAAXX_4_1.fq.gz | awk '{print length}' | head -n2
 > ```
 > 50 bp
 
 How many lines are there in both files? (hint: use `wc -l`)
 
 > ```sh
-> gunzip -c 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz |wc -l
+> gunzip -c 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz | wc -l
 > ```
 > 40,869,448 lines
 
@@ -211,11 +211,11 @@ How many reads are there in both files?
 
 How many bases are sequenced?
 
-> 10217362*50 = 510,868,100 bp
+> 10217362 * 50 = 510,868,100 bp
 
 Assuming the BAC is 200 kbp, what is the depth of coverage?
 
-> 510868100/200000 = 2554 fold coverage
+> 510868100 / 200000 = 2554 fold coverage
 
 # Exercise 3: Assemble the reads into contigs using ABySS
 
