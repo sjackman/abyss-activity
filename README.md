@@ -223,30 +223,35 @@ Run the assembly.
 
 ```sh
 cd $top
-k=48 run-abyss contigs 2>&1 |tee abyss.log
+mkdir k48
+ln -s ../30CJCAAXX_4_1.fq.gz ../30CJCAAXX_4_2.fq.gz k48/
+abyss-pe -C k48 name=HS0674 k=48 v=-v in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs 2>&1 | tee abyss.log
+```
+
+You may need to use the uncompressed FASTQ files on a Mac.
+
+```sh
+gunzip -k 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz
+mkdir k48
+ln -s ../30CJCAAXX_4_1.fq ../30CJCAAXX_4_2.fq k48/
+abyss-pe -C k48 name=HS0674 k=48 v=-v in="30CJCAAXX_4_1.fq 30CJCAAXX_4_2.fq" contigs 2>&1 | tee abyss.log
 ```
 
 5 min, 200 MB RAM, 2 MB disk space
-
-While the assembly is running, view the script in a text editor. You may substitute whichever text editor you prefer for `gview`.
-
-```sh
-gview $top/bin/run-abyss
-```
 
 Look at the option `-n,--dry-run` of abyss-pe. Its output is the
 commands that ABySS will run for the assembly.
 
 ```sh
-k=32 run-abyss -n
+abyss-pe name=HS0674 k=48 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs -n
 ```
 
-The assembly runs in three stages: assemble contigs without paired-end information, align the paired-end reads to the initial assembly, and merge contigs joined by paired-end information. You can instruct ABySS to stop after any of these stages. Use the -n option to see the commands for each stage.
+The assembly runs in three stages: assemble contigs without paired-end information, align the paired-end reads to the initial assembly, and merge contigs joined by paired-end information. You can instruct ABySS to stop after any of these stages. Use the `-n` option to see the commands for each stage.
 
 ```sh
-k=32 run-abyss unitigs -n
-k=32 run-abyss pe-sam -n
-k=32 run-abyss contigs -n
+abyss-pe name=HS0674 k=48 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" unitigs -n
+abyss-pe name=HS0674 k=48 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" pe-sam -n
+abyss-pe name=HS0674 k=48 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs -n
 ```
 
 Once the assembly has completed, view the contigs in a text editor.
@@ -255,18 +260,18 @@ Once the assembly has completed, view the contigs in a text editor.
 gview k48/HS0674-contigs.fa
 ```
 
-Disabling line wrap makes it easier to browse the file. For Emacs, select the option "Options -> Line Wrapping in this Buffer -> Truncate Long Lines." For gview, select the option "Edit -> File Settings -> Toggle Line Wrap", or type `:set nowrap`
+Disabling line wrap makes it easier to browse the file. For Emacs, select the option "Options -> Line Wrapping in this Buffer -> Truncate Long Lines." For Vim, select the option "Edit -> File Settings -> Toggle Line Wrap", or type `:set nowrap`
 
 How many contigs are longer than 100 bp?
 
 > 6
 
-What is the length of the longest contig (hint: use wc -L)?
+What is the length of the longest contig (hint: use `awk '{print length}'`)?
 
 > ```sh
-> wc -L k48/HS0674-contigs.fa
+> awk '{print length}' k48/HS0674-contigs.fa | sort -n | tail -n1
 > ```
-> 67530 bp
+> 67,526 bp
 
 What is the N50 of the assembly?
 
@@ -275,10 +280,10 @@ abyss-fac k48/HS0674-contigs.fa
 ```
 
 > ```
-> n      n:200  n:N50  min    N80    N50    N20    max    sum
-> 14     6      2      8044   54373  54746  67484  67484  212392
+> n   n:500  L50  min   N80    N50    N20    E-size  max    sum     name
+> 13  6      2    8044  54373  54743  67480  51662   67480  212330  k48/HS0674-contigs.fa
 > ```
-> 54746 bp
+> 54,743 bp
 
 View the assembly log in a text editor.
 
@@ -288,7 +293,7 @@ gview abyss.log
 
 What portion of the reads align to the assembly? (hint: search for "Mapped")
 
-> Mapped 7172456 of 10217362 reads (70.2%)
+> Mapped 7167472 of 10217362 reads (70.1%)
 
 What is the median fragment size and standard deviation of this library? (hint: search for "median")
 
