@@ -502,7 +502,13 @@ What is the minor allele frequency (MAF) of this SNP?
 
 Browse the variants called by both methods using IGV.
 
-Start IGV. Select:
+Start IGV using either the command line or the user interface.
+
+```sh
+igv -g hg38 k48/HS0674-contigs.bam,k48/HS0674-contigs.vcf.gz,30CJCAAXX_4.vcf.gz
+```
+
+Or select:
 
 + File -> Load from File... `k48/HS0674-contigs.bam`
 + File -> Load from File... `k48/HS0674-contigs.vcf.gz`
@@ -565,7 +571,7 @@ Start IGV using either the command line or the user interface.
 igv -g k48/HS0674-contigs.fa k48/30CJCAAXX_4.bam
 ```
 
-or 
+Or select:
 
 + Genomes -> Load Genome from File `k48/HS0674-contigs.fa`
 + File -> Load from File `k48/30CJCAAXX_4.bam`
