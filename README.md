@@ -47,7 +47,7 @@ The total run time of the tools alone is approximately 70 minutes on a 2-core 2 
 + snpEff 4.2: determine the effect of SNVs
   http://snpeff.sourceforge.net
 
-## Install the software on Mac OS
+## Install Homebrew for Mac OS
 
 Install [Xcode](macappstores://itunes.apple.com/us/app/xcode/id497799835).
 
@@ -59,33 +59,21 @@ Install [Homebrew](http://brew.sh).
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Install GNU Coreutils and the text editor MacVim using Homebrew.
+## Install Linuxbrew for Linux
+
+Install [Linuxbrew](http://linuxbrew.sh).
 
 ```sh
-brew install coreutils
-brew cask install macvim
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
 ```
 
-Install ABySS, BWA, samtools and snpEff using Homebrew.
+## Install the software using Homebrew or Linuxbrew
+
+Install ABySS, bcftools, BWA, IGV, samtools and SnpEff using brew.
 
 ```sh
 brew tap homebrew/science
 brew install abyss bcftools bwa igv samtools snpeff
-```
-
-IGV may alternatively be installed using Java Web Start:
-
-```sh
-javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
-```
-
-snpEff may alternatively be installed manually.
-
-```sh
-curl -LO http://downloads.sourceforge.net/project/snpeff/snpEff_v4_2_core.zip
-unzip snpEff_v4_2_core.zip
-curl -LO http://downloads.sourceforge.net/project/snpeff/databases/v4_2/snpEff_v4_2_GRCh38.82.zip
-unzip -d snpEff snpEff_v4_2_GRCh38.82.zip
 ```
 
 ## Install the software on Ubuntu and Debian using `apt-get`
@@ -97,7 +85,21 @@ sudo apt-get install abyss bcftools bwa igv samtools
 sudo ln -s /usr/lib/abyss/abyss-fac /usr/local/bin/
 ```
 
-Install snpEff using the instructions above for Mac OS.
+## Install the software manually
+
+
+IGV may be installed using Java Web Start.
+
+```sh
+javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+```
+
+snpEff may be installed manually.
+
+```sh
+curl -LO http://downloads.sourceforge.net/project/snpeff/snpEff_v4_2_core.zip
+unzip snpEff_v4_2_core.zip
+```
 
 ## Set up the environment
 
