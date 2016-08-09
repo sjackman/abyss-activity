@@ -385,7 +385,9 @@ Which four genes overlap the contigs?
 
 > ST6GAL1, SST, RTP2 and BCL6
 
-Add the dbSNP track. Select "File -> Load from Server" then expand "Annotations", "Variation and Repeats" and select "dbSNP 142". Alternatively, select "File -> Load from URL" and enter `ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz`, or download this file and the associated `.gz.tbi` file using `curl` and load it using "File -> Load from File".
+Add the dbSNP track. Select "File -> Load from Server", expand "Annotations" and select "Common Snps 1.4.2".
+
+Alternatively, download `ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz` and its associated `.gz.tbi` index file, and load it using "File -> Load from File".
 
 Zoom in on a SNV. Is it in dbSNP? Is it coding?
 
