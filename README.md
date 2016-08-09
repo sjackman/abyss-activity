@@ -126,7 +126,7 @@ Check that the tools are installed in the PATH.
 
 ```sh
 source environment
-which abyss-fac abyss-pe bcftools bgzip bwa curl gview java samtools snpeff tabix vcfutils.pl
+which abyss-fac abyss-pe bcftools bgzip bwa curl gview java samtools snpeff vcfutils.pl
 ```
 
 Check that the workshop scripts are in the PATH.
@@ -443,20 +443,25 @@ Which two genes are fused as a result of this rearrangement?
 
 # Exercise 9: Call variants of the reads-to-reference alignments using bcftools (optional)
 
-Check that BWA has completed aligning the reads to the reference. Run bcftools in this terminal.
+Check that BWA has completed aligning the reads to the reference, or run BWA now.
 
 ```sh
-cd $top/bwa
-run-bcftools 2>&1 |tee bcftools.log
+bwa mem -t2 chr3.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz >30CJCAAXX_4.sam
+```
+
+Call variants using bcftools.
+
+```sh
+samtools sort -@2 -o 30CJCAAXX_4.bam 30CJCAAXX_4.sam
+samtools index 30CJCAAXX_4.bam
+samtools mpileup -u -d 9999 -L 9999 -f chr3.fa 30CJCAAXX_4.bam >30CJCAAXX_4.bcf
+bcftools view 30CJCAAXX_4.bcf >30CJCAAXX_4.var.vcf
+vcfutils.pl varFilter -D9999 30CJCAAXX_4.var.vcf >30CJCAAXX_4.varFilter.vcf
+bgzip 30CJCAAXX_4.varFilter.vcf
+bcftools index 30CJCAAXX_4.varFilter.vcf.gz
 ```
 
 20 min, 250 MB RAM, 120 MB disk space
-
-While bcftools is running, view the script in a text editor.
-
-```sh
-gview $top/bin/run-bcftools
-```
 
 # Exercise 10: Call variants of the contigs-to-reference alignments using bcftools
 
