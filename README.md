@@ -121,7 +121,7 @@ curl -L https://github.com/sjackman/abyss-activity/archive/master.tar.gz | tar -
 Check that the tools are installed in the PATH.
 
 ```sh
-which abyss-fac abyss-pe bcftools bgzip bwa curl java samtools snpEff SnpSift vcfutils.pl
+which abyss-fac abyss-pe bcftools bwa curl java samtools snpEff SnpSift
 ```
 
 Download the FASTQ files.
@@ -437,10 +437,8 @@ Call variants using bcftools.
 samtools sort -@2 -o 30CJCAAXX_4.bam 30CJCAAXX_4.sam
 samtools index 30CJCAAXX_4.bam
 samtools mpileup -u -d 9999 -L 9999 -f chr3.fa 30CJCAAXX_4.bam >30CJCAAXX_4.bcf
-bcftools view 30CJCAAXX_4.bcf >30CJCAAXX_4.var.vcf
-vcfutils.pl varFilter -D9999 30CJCAAXX_4.var.vcf >30CJCAAXX_4.varFilter.vcf
-bgzip 30CJCAAXX_4.varFilter.vcf
-bcftools index 30CJCAAXX_4.varFilter.vcf.gz
+bcftools call -c -v -Oz 30CJCAAXX_4.bcf >30CJCAAXX_4.vcf.gz
+bcftools index 30CJCAAXX_4.vcf.gz
 ```
 
 20 min, 250 MB RAM, 120 MB disk space
@@ -508,7 +506,7 @@ Start IGV. Select:
 
 + File -> Load from File... `k48/HS0674-contigs.bam`
 + File -> Load from File... `k48/HS0674-contigs.vcf.gz`
-+ File -> Load from File... `30CJCAAXX_4.varFilter.vcf.gz`
++ File -> Load from File... `30CJCAAXX_4.vcf.gz`
 
 Go to the region `chr3:186,931,150-186,931,250`
 
