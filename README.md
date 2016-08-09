@@ -397,25 +397,22 @@ How many Ns should there be for the size of the gap to agree with the reference?
 
 # Exercise 7: Browse the contig to reference alignments using IGV
 
-Start IGV.
+Start IGV. Open the "IGV 2.3" icon on your desktop, or run either `igv` or `javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp` at the command line.
 
-```sh
-javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
-```
+Select "View -> Preferences -> Alignments" and change "Visibility range threshold (kb)" to 1000. Select the "Genomes -> Load Genome From Server -> Human hg38". Then select "File -> Load from File" and "k48/HS0674-contigs.bam" Go to the region `chr3:186,500,000-188,000,000` by entering it into the box labeled "Go". IGV may take up to a minute to load.
 
-Select "View -> Preferences... -> Alignments" and change "Visibility range threshold (kb)" to 1000. Select the "Genomes -> Load Genome From Server... -> Human hg19". Then select "File -> Load from File..." and "k48/bwamem/HS0674-contigs.bam" Go to the region chr3:186,600,000-187,600,000 by entering it into the box labeled "Go". IGV may take up to a minute to load.
-
-What genes overlap the contigs?
+Which four genes overlap the contigs?
 
 > ST6GAL1, SST, RTP2 and BCL6
 
-Add the dbSNP track. Select "File -> Load from Server..." then expand "Annotations" and "Variation and Repeats" and select "dbSNP 1.3.1". Zoom in on a SNV. Is it in dbSNP? Is it coding?
+Add the dbSNP track. Select "File -> Load from Server" then expand "Annotations", "Variation and Repeats" and select "dbSNP 142". Alternatively, select "File -> Load from URL" and enter `ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz`, or download this file and the associated `.gz.tbi` file using `curl` and load it using "File -> Load from File".
+
+Zoom in on a SNV. Is it in dbSNP? Is it coding?
 
 Bonus: Find a coding SNV. What is its dbSNP rs ID?
 
-> rs1973791 (chr3:187,416,634),
-> rs11707167 (chr3:187,416,719),
-> rs1056932 (chr3:187,447,032)
+> rs1973791 (chr3:187,698,846) and rs11707167 (chr3:187,698,931) in the last exon of RTP2.
+> rs1056932 (chr3:187,729,244) in exon 5 of BCL6.
 
 # Exercise 8: View the contig to reference alignments SAM file
 
