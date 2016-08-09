@@ -1,1 +1,7 @@
-brew 'pandoc'
+tap 'homebrew/science'
+brew 'abyss'
+brew 'bcftools'
+brew 'bwa'
+brew 'igv'
+brew 'samtools'
+brew 'snpeff'
