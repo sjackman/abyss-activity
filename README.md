@@ -101,12 +101,13 @@ curl -LO http://downloads.sourceforge.net/project/snpeff/snpEff_v4_2_core.zip
 unzip snpEff_v4_2_core.zip
 ```
 
-## Set up the environment
+## Set up the working directory
 
 Download the workshop scripts using git, if you have it installed.
 
 ```sh
 git clone git://github.com/sjackman/abyss-activity.git ~/abyss
+cd ~/abyss
 ```
 
 If you do not have git installed, use curl.
@@ -117,24 +118,10 @@ cd ~/abyss
 curl -L https://github.com/sjackman/abyss-activity/archive/master.tar.gz | tar -zx --strip 1
 ```
 
-The shell script named `environment` will set environment variables that specify the location of the installed software. Each time that you open a new terminal, you will need to run the following two commands to change to the working directory and source the environment script:
-
-```sh
-cd ~/abyss
-source environment
-```
-
 Check that the tools are installed in the PATH.
 
 ```sh
-source environment
-which abyss-fac abyss-pe bcftools bgzip bwa curl gview java samtools snpeff vcfutils.pl
-```
-
-Check that the workshop scripts are in the PATH.
-
-```sh
-which run-abyss run-bwa run-bwamem run-snpeff run-bcftools run-bcftools-assembly
+which abyss-fac abyss-pe bcftools bgzip bwa curl java samtools snpEff SnpSift vcfutils.pl
 ```
 
 Download the FASTQ files.
@@ -144,7 +131,7 @@ curl -LO ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_1.fq.gz
 curl -LO ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_2.fq.gz
 ```
 
-Download the reference file of Human chromosome 3.
+Download the reference file of human chromosome 3.
 
 ```sh
 curl -LO http://hgdownload.cse.ucsc.edu/goldenpath/hg38/chromosomes/chr3.fa.gz
@@ -156,7 +143,6 @@ gunzip chr3.fa.gz
 Index the reference file.
 
 ```sh
-cd $top
 bwa index chr3.fa
 ```
 
@@ -167,25 +153,18 @@ bwa index chr3.fa
 Run BWA.
 
 ```sh
-cd $top
-bwa mem -t2 chr3.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz >bwa.sam
+bwa mem -t2 chr3.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz >30CJCAAXX_4.sam
 ```
 
 40 min, 250 MB RAM, 3 GB disk space
 
-While this job is running in the background, open a new terminal and continue with the next section. Remember that you have to set the environment. In the new terminal window type:
-
-```sh
-cd ~/abyss
-source environment
-```
+While this job is running in the background, open a new terminal and continue with the next section.
 
 # Exercise 2: Inspect the reads
 
 There are two FASTQ files for this one lane of paired-end Illumina data: one file for the forward reads and one file for the reverse reads. Look at the first few reads.
 
 ```sh
-cd $top
 gunzip -c 30CJCAAXX_4_1.fq.gz | head
 ```
 
@@ -224,7 +203,6 @@ Assuming the BAC is 200 kbp, what is the depth of coverage?
 Run the assembly.
 
 ```sh
-cd $top
 mkdir k48
 ln -s ../30CJCAAXX_4_1.fq.gz ../30CJCAAXX_4_2.fq.gz k48/
 abyss-pe -C k48 name=HS0674 k=48 v=-v in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs 2>&1 | tee abyss.log
