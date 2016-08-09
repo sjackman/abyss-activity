@@ -468,7 +468,7 @@ bcftools index 30CJCAAXX_4.varFilter.vcf.gz
 Run bcftools.
 
 ```sh
-samtools mpileup -v -B -f chr3.fa k48/HS0674-contigs.bam | bcftools view -Oz -v snps >k48/HS0674-contigs.vcf.gz
+samtools mpileup -v -B -f chr3.fa k48/HS0674-contigs.bam | bcftools view -Oz -v snps,mnps,indels >k48/HS0674-contigs.vcf.gz
 bcftools index k48/HS0674-contigs.vcf.gz
 ```
 
@@ -522,19 +522,13 @@ What is the minor allele frequency (MAF) of this SNP?
 
 Browse the variants called by both methods using IGV.
 
-Start IGV.
+Start IGV. Select:
 
-```sh
-javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
-```
++ File -> Load from File... `k48/HS0674-contigs.bam`
++ File -> Load from File... `k48/HS0674-contigs.vcf.gz`
++ File -> Load from File... `30CJCAAXX_4.varFilter.vcf.gz`
 
-Select:
-
-+ File -> Load from File... `k48/bwamem/HS0674-contigs.bam`
-+ File -> Load from File... `k48/bwamem/HS0674-contigs.var.vcf.gz`
-+ File -> Load from File... `bwa/HS0674.var.vcf.gz`
-
-Go to the region chr3:186,648,960
+Go to the region `chr3:186,931,150-186,931,250`
 
 Is the SNV called by both methods?
 
@@ -550,16 +544,13 @@ Hover the mouse cursor over the insertion to see the inserted sequence. What is 
 
 Compare the inserted sequence to the reference sequence at this location. What sequence do the inserted sequence and the reference sequence have in common?
 
-> The insertion duplicates this 8-bp sequence: TCTGGGTT
+> The insertion duplicates the 8-bp sequence TCTGGGTT. The remaining 16 bp are an untemplated insertion.
 
-Load the alignments of the reads to the reference.
-
-File -> Load from File... `bwa/30CJCAAXX_4.bam`
+Load the alignments of the reads to the reference. "File -> Load from File" `30CJCAAXX_4.bam`
 
 The aligned reads do not show the insertion, but the alignments that span the insertion have mismatches at the end of the alignment. Do those mismatched bases agree with the inserted sequence?
 
-> Yes, the mismatched bases show CT at the 5' end and CC
-> at the 3' end, which agree with the inserted sequence.
+> Yes, the mismatched bases show CT at the 5' end and CC at the 3' end, which agree with the inserted sequence.
 
 # Exercise 13: Align the reads to the contigs using BWA (optional)
 
