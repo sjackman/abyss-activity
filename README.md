@@ -419,8 +419,7 @@ Bonus: Find a coding SNV. What is its dbSNP rs ID?
 View the SAM file in a text editor. Disable line wrap.
 
 ```sh
-cd $top/k48/bwamem
-gview HS0674-contigs.sam
+gview k48/HS0674-contigs.sam
 ```
 
 The contig ID is given in the first column, and the position of the contig on the reference is given in the third and fourth columns. Which large contig has two alignments, and what are the positions of these two alignments?
@@ -430,11 +429,13 @@ The contig ID is given in the first column, and the position of the contig on th
 
 The orientation is given in the second column. The numbers 0 and 2048 both indicate positive orientation, and 16 indicates negative orientation. What is the position and orientation of these two alignments?
 
-> chr3:186,698,393 (-) and chr3:187,439,792 (+)
+> chr3:186,980,605 (-) and chr3:187,722,004 (+)
 
-In IGV, go to the region chr3:186,600,000-187,600,000 and find these two alignments. What large-scale structural rearrangement has occurred, and what is its approximate size?
+In IGV, go to the region `chr3:186,500,000-188,000,000`. The alignment highlighted in blue indicates that the alignment of this contig to the reference genome is split in two, suggesting a misassembly or a structural rearrangement. To find the other half of the alignment, hover over the blue alignment and note its "Read name". Right click on that alignment, select "Select by name", and enter the "Read name" that you noted previously. Both alignments of this one contig are now highlighted in red.
 
-> a ~800 kbp inversion
+What large-scale structural rearrangement has occurred, and what is its approximate size?
+
+> a ~700 kbp inversion
 
 Which two genes are fused as a result of this rearrangement?
 
