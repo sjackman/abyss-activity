@@ -476,36 +476,37 @@ Browse the variants using IGV. Select "File -> Load from File" `k48/HS0674-conti
 
 # Exercise 11: Determine the effects of the SNVs
 
-Run snpEff.
+Run SnpEff.
 
 ```sh
-cd $top/k48/bwamem
-run-snpeff HS0674-contigs.var.vcf.gz >HS0674-contigs.var.snpeff
+snpEff download GRCh38.82
+snpEff eff GRCh38.82 k48/HS0674-contigs.vcf.gz >k48/HS0674-contigs.snpeff.vcf
+SnpSift extractFields k48/HS0674-contigs.snpeff.vcf CHROM POS ANN >k48/HS0674-contigs.snpeff
 ```
 
 1 min, 2.8 GB RAM
 
-View the output of snpEff in a text editor.
+View the output of SnpEff in a text editor.
 
 ```sh
-gview HS0674-contigs.var.snpeff
+gview k48/HS0674-contigs.snpeff
 ```
 
 Count the number of SNVs in each category of effect.
 
 ```sh
-cut -f1,2,16 HS0674-contigs.var.snpeff |cut -d: -f1 |sort -u |cut -f3 |sort |uniq -c
+cut -d'|' -f2 k48/HS0674-contigs.snpeff | sort | uniq -c
 ```
 
-Find all the coding SNVs.
+Find all the coding (synonymous or missense) SNVs.
 
 ```sh
-grep CODING HS0674-contigs.var.snpeff |cut -f1-4,16-18 |uniq
+egrep 'synonymous|missense' k48/HS0674-contigs.snpeff | cut -f1,2
 ```
 
-Find the non-synonymous SNV. What is its location?
+Find the missense (non-synonymous) SNV. What is its location?
 
-> chr3:187,416,719
+> chr3:187,698,931
 
 What is its dbSNP rs ID? (hint: use IGV or the UCSC genome browser)
 
@@ -515,7 +516,7 @@ Open dbSNP in a web browser: <http://www.ncbi.nlm.nih.gov/projects/SNP/>
 
 What is the minor allele frequency (MAF) of this SNP?
 
-> T=0.4716
+> T=0.4002 (ExAC)
 
 # Exercise 12: Compare the assembly variants to the read-alignment variants (optional)
 
