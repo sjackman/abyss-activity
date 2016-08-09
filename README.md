@@ -468,11 +468,11 @@ bcftools index 30CJCAAXX_4.varFilter.vcf.gz
 Run bcftools.
 
 ```sh
-cd $top/k48/bwamem
-run-bcftools-assembly 2>&1 |tee bcftools.log
+samtools mpileup -v -B -f chr3.fa k48/HS0674-contigs.bam | bcftools view -Oz -v snps >k48/HS0674-contigs.vcf.gz
+bcftools index k48/HS0674-contigs.vcf.gz
 ```
 
-Browse the variants using IGV. Select "File->Load from File... k48/bwamem/HS0674-contigs.var.vcf.gz" Right-click on the VCF track and select "Color by Allele".
+Browse the variants using IGV. Select "File -> Load from File" `k48/HS0674-contigs.vcf.gz`
 
 # Exercise 11: Determine the effects of the SNVs
 
