@@ -557,11 +557,10 @@ The aligned reads do not show the insertion, but the alignments that span the in
 Run BWA.
 
 ```sh
-cd $top
-mkdir k48/bwa
-cd k48/bwa
-bwa index ../HS0674-contigs.fa
-ref=../HS0674-contigs.fa run-bwa 2>&1 |tee bwa.log
+bwa index k48/HS0674-contigs.fa
+bwa mem -t2 k48/HS0674-contigs.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz >k48/30CJCAAXX_4.sam
+samtools sort -@2 -o k48/30CJCAAXX_4.bam k48/30CJCAAXX_4.sam
+samtools index k48/30CJCAAXX_4.bam
 ```
 
 12 min, 200 MB RAM, 3 GB disk space
@@ -569,18 +568,26 @@ ref=../HS0674-contigs.fa run-bwa 2>&1 |tee bwa.log
 Index the assembly FASTA file.
 
 ```sh
-samtools faidx ../HS0674-contigs.fa
+samtools faidx k48/HS0674-contigs.fa
 ```
 
 Browse the BAM file using samtools tview.
 
 ```sh
-samtools tview 30CJCAAXX_4.bam ../HS0674-contigs.fa
+samtools tview k48/30CJCAAXX_4.bam k48/HS0674-contigs.fa
 ```
 
 Browse the BAM file using IGV.
 
-+ File -> Import Genome... `k48/HS0674-contigs.fa`
-+ File -> Load from File... `k48/bwa/30CJCAAXX_4.bam`
+Start IGV using either the command line or the user interface.
+
+```sh
+igv -g k48/HS0674-contigs.fa k48/30CJCAAXX_4.bam
+```
+
+or 
+
++ Genomes -> Load Genome from File `k48/HS0674-contigs.fa`
++ File -> Load from File `k48/30CJCAAXX_4.bam`
 
 Find a scaffold gap on the largest contig. Find the two contigs that have consistent mate pairs joining them.
