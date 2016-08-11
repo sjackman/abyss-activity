@@ -101,27 +101,21 @@ curl -LO http://downloads.sourceforge.net/project/snpeff/snpEff_v4_2_core.zip
 unzip snpEff_v4_2_core.zip
 ```
 
-## Set up the working directory
-
-Download the workshop scripts using git, if you have it installed.
-
-```sh
-git clone git://github.com/sjackman/abyss-activity.git ~/abyss
-cd ~/abyss
-```
-
-If you do not have git installed, use curl.
-
-```sh
-mkdir ~/abyss
-cd ~/abyss
-curl -L https://github.com/sjackman/abyss-activity/archive/master.tar.gz | tar -zx --strip 1
-```
+## Check that the software is installed
 
 Check that the tools are installed in the PATH.
 
 ```sh
 which abyss-fac abyss-pe bcftools bwa curl java samtools snpEff SnpSift
+```
+
+## Download the data
+
+Create your working directory.
+
+```sh
+mkdir ~/abyss
+cd ~/abyss
 ```
 
 Download the FASTQ files.
@@ -138,9 +132,10 @@ curl -LO http://hgdownload.cse.ucsc.edu/goldenpath/hg38/chromosomes/chr3.fa.gz
 gunzip chr3.fa.gz
 ```
 
-Download the snpEff database.
+Install snpEff if you haven't yet, and download the snpEff database.
 
 ```sh
+brew install snpeff
 snpEff download GRCh38.82
 ```
 
