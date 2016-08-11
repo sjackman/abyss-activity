@@ -67,6 +67,12 @@ Install [Linuxbrew](http://linuxbrew.sh).
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
 ```
 
+Add the `brew` command to your `PATH`. You will need to run this command again in each new shell that you open.
+
+```sh
+PATH=~/.linuxbrew/bin:$PATH
+```
+
 ## Install the software using Homebrew or Linuxbrew
 
 Install ABySS, bcftools, BWA, IGV, samtools and SnpEff using brew.
