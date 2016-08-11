@@ -138,6 +138,12 @@ curl -LO http://hgdownload.cse.ucsc.edu/goldenpath/hg38/chromosomes/chr3.fa.gz
 gunzip chr3.fa.gz
 ```
 
+Download the snpEff database.
+
+```sh
+snpEff download GRCh38.82
+```
+
 # Exercise 0: Index the reference using BWA
 
 Index the reference file.
