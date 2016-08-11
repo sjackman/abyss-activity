@@ -73,7 +73,7 @@ Install ABySS, bcftools, BWA, IGV, samtools and SnpEff using brew.
 
 ```sh
 brew tap homebrew/science
-brew install abyss bcftools bwa igv samtools snpeff
+brew install abyss bcftools bwa gnuplot igv mummer samtools snpeff
 ```
 
 ## Install the software on Ubuntu and Debian using `apt-get`
@@ -423,6 +423,40 @@ What large-scale structural rearrangement has occurred, and what is its approxim
 Which two genes are fused as a result of this rearrangement?
 
 > ST6GAL1 and BCL6
+
+## Create a dot plot using MUMmer
+
+A dot plot visualizes the alignments of two sequences to each other.
+
+Extract the two sequences that we want to align. In the commands below, replace the number `102` with the contig identifier of your contig that shows the inversion. Your contig may be reverse-complemented with respect to the reference, because the orientation of assembled contigs is arbitrary. The `seqtk seq -r` command below reverse complements the contig sequence. If your contig had the same orientation as the reference, you would want to skip that command.
+
+```sh
+samtools faidx chr3.fa chr3:186,900,000-187,800,000 >chr3q27.3.fa
+samtools faidx k48/HS0674-contigs.fa 102 | seqtk seq -r >inversion.fa
+```
+
+Align the two sequences to each other using `nucmer` from MUMmer.
+
+```sh
+nucmer -p inversion chr3q27.3.fa inversion.fa >inversion.delta
+```
+
+Create the dot plot.
+
+```sh
+mummerplot -png -p inversion inversion.delta
+```
+
+Edit the file `inversion.gp` to make the aspect ratio square. Also disable the interactive mouse feature of gnuplot, which requires that you install X11. The following command uses `sed` to edit the file, but you could also use a text editor.
+
+```sh
+sed -i '' 's/set size 1,1/set size ratio -1/;/set mouse/d' inversion.gp
+gnuplot inversion.gp
+```
+
+Open the image `inversion.png`. The size of the bacterial artificial chromosome (BAC) is much smaller than the size of the inversion, but even so we can still determine the size of the inversion. If you have pen and paper handy, draw what the dot plot would look like if the inversion were smaller so that the BAC contained the entire inversion. How large is the inversion?
+
+> approximately 700 kbp
 
 # Exercise 9: Call variants of the reads-to-reference alignments using bcftools (optional)
 
