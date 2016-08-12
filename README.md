@@ -241,13 +241,11 @@ abyss-pe name=HS0674 k=48 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" pe-sam -n
 abyss-pe name=HS0674 k=48 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs -n
 ```
 
-Once the assembly has completed, view the contigs in a text editor.
+Once the assembly has completed, look at the assembled contigs using `less`. The option `-S` disables line wrapping.
 
 ```sh
-gview k48/HS0674-contigs.fa
+less -S k48/HS0674-contigs.fa
 ```
-
-Disabling line wrap makes it easier to browse the file. For Emacs, select the option "Options -> Line Wrapping in this Buffer -> Truncate Long Lines." For Vim, select the option "Edit -> File Settings -> Toggle Line Wrap", or type `:set nowrap`
 
 How many contigs are longer than 100 bp?
 
@@ -272,10 +270,10 @@ abyss-fac k48/HS0674-contigs.fa
 > ```
 > 54,743 bp
 
-View the assembly log in a text editor.
+View the assembly log.
 
 ```sh
-gview abyss.log
+less -S abyss.log
 ```
 
 What portion of the reads align to the assembly? (hint: search for "Mapped")
@@ -290,13 +288,13 @@ What is the median fragment size and standard deviation of this library? (hint: 
 
 Open BLAT in a web browser: <http://genome.ucsc.edu>
 
-View the assembled contigs in a text editor.
+View the assembled contigs in a text editor. `gview` is one text editor. You can use any text editor that you prefer.
 
 ```sh
 gview k48/HS0674-contigs.fa
 ```
 
-Disabling line wrap makes it easier to select the full sequence.
+Disable line wrap to make it easier to select the full sequence. For Emacs, select the option "Options -> Line Wrapping in this Buffer -> Truncate Long Lines." For Vim, select the option "Edit -> File Settings -> Toggle Line Wrap", or type `:set nowrap`
 
 Select the two contigs whose lengths are approximately 8 and 16.5 kbp and copy-and-paste their sequence into BLAT.
 
@@ -405,10 +403,10 @@ Bonus: Find a coding SNV. What is its dbSNP rs ID?
 
 # Exercise 8: View the contig to reference alignments SAM file
 
-View the SAM file in a text editor. Disable line wrap.
+View the SAM file.
 
 ```sh
-gview k48/HS0674-contigs.sam
+less -S k48/HS0674-contigs.sam
 ```
 
 The contig ID is given in the first column, and the position of the contig on the reference is given in the third and fourth columns. Which large contig has two alignments, and what are the positions of these two alignments?
@@ -507,10 +505,10 @@ SnpSift extractFields k48/HS0674-contigs.snpeff.vcf CHROM POS ANN >k48/HS0674-co
 
 1 min, 2.8 GB RAM
 
-View the output of SnpEff in a text editor.
+View the output of SnpEff.
 
 ```sh
-gview k48/HS0674-contigs.snpeff
+less -S k48/HS0674-contigs.snpeff
 ```
 
 Count the number of SNVs in each category of effect.
