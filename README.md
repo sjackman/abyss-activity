@@ -78,7 +78,7 @@ PATH=~/.linuxbrew/bin:$PATH
 Install ABySS, bcftools, BWA, IGV, samtools and SnpEff using brew.
 
 ```sh
-brew tap homebrew/science
+brew tap brewsci/bio
 brew install abyss bcftools bwa gnuplot igv mummer samtools snpeff
 ```
 
@@ -142,7 +142,7 @@ Install snpEff if you haven't yet, and download the snpEff database.
 
 ```sh
 brew install snpeff
-snpEff download GRCh38.82
+snpEff download GRCh38.86
 ```
 
 # Exercise 0: Index the reference using BWA
@@ -212,7 +212,7 @@ Run the assembly.
 ```sh
 mkdir k48
 ln -s ../30CJCAAXX_4_1.fq.gz ../30CJCAAXX_4_2.fq.gz k48/
-abyss-pe -C k48 name=HS0674 k=48 v=-v in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs 2>&1 | tee abyss.log
+abyss-pe -C k48 name=HS0674 s=200 k=48 v=-v in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs 2>&1 | tee abyss.log
 ```
 
 You may need to use the uncompressed FASTQ files on a Mac.
@@ -221,7 +221,7 @@ You may need to use the uncompressed FASTQ files on a Mac.
 gunzip -k 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz
 mkdir k48
 ln -s ../30CJCAAXX_4_1.fq ../30CJCAAXX_4_2.fq k48/
-abyss-pe -C k48 name=HS0674 k=48 v=-v in="30CJCAAXX_4_1.fq 30CJCAAXX_4_2.fq" contigs 2>&1 | tee abyss.log
+abyss-pe -C k48 name=HS0674 s=200 k=48 v=-v in="30CJCAAXX_4_1.fq 30CJCAAXX_4_2.fq" contigs 2>&1 | tee abyss.log
 ```
 
 5 min, 200 MB RAM, 2 MB disk space
@@ -230,7 +230,7 @@ Look at the option `-n,--dry-run` of abyss-pe. Its output is the
 commands that ABySS will run for the assembly.
 
 ```sh
-abyss-pe name=HS0674 k=48 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs -n
+abyss-pe name=HS0674 s=200 k=48 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs -n
 ```
 
 The assembly runs in three stages: assemble contigs without paired-end information, align the paired-end reads to the initial assembly, and merge contigs joined by paired-end information. You can instruct ABySS to stop after any of these stages. Use the `-n` option to see the commands for each stage.
@@ -390,15 +390,15 @@ Which four genes overlap the contigs?
 
 > ST6GAL1, SST, RTP2 and BCL6
 
-Add the dbSNP track. Select "File -> Load from Server", expand "Annotations" and select "Common Snps 1.4.2".
+Add the dbSNP track. Select "File -> Load from Server", expand "Annotations" and select "All Snps 1.4.2". Should you have issues loading it, select "common Snps 1.4.2" instead.
 
-Alternatively, download `ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz` and its associated `.gz.tbi` index file, and load it using "File -> Load from File".
+Alternatively, download `ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz` for Common Snps, or `ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-All.vcf.gz` for All Snps along with their associated `.gz.tbi` index file, and load them using "File -> Load from File".
 
 Zoom in on a SNV. Is it in dbSNP? Is it coding?
 
 Bonus: Find a coding SNV. What is its dbSNP rs ID?
 
-> rs1973791 (chr3:187,698,846) and rs11707167 (chr3:187,698,931) in the last exon of RTP2.
+> rs1973791 (chr3:187,698,846) and rs11707167 (chr3:187,698,931) in the last exon of RTP2. (note that rs1973791 in only available when using "All Snps 1.4.2", so ignore it if you are using "common Snps 1.4.2").
 > rs1056932 (chr3:187,729,244) in exon 5 of BCL6.
 
 # Exercise 8: View the contig to reference alignments SAM file
@@ -412,13 +412,13 @@ less -S k48/HS0674-contigs.sam
 The contig ID is given in the first column, and the position of the contig on the reference is given in the third and fourth columns. Which large contig has two alignments, and what are the positions of these two alignments?
 
 > The contig that has alignments starting at
-> chr3:186,698,393 and chr3:187,439,792.
+> chr3:186,980,605 and chr3:187,722,004.
 
 The orientation is given in the second column. The numbers 0 and 2048 both indicate positive orientation, and 16 indicates negative orientation. What is the position and orientation of these two alignments?
 
 > chr3:186,980,605 (-) and chr3:187,722,004 (+)
 
-In IGV, go to the region `chr3:186,500,000-188,000,000`. The alignment highlighted in blue indicates that the alignment of this contig to the reference genome is split in two, suggesting a misassembly or a structural rearrangement. To find the other half of the alignment, hover over the blue alignment and note its "Read name". Right click on that alignment, select "Select by name", and enter the "Read name" that you noted previously. Both alignments of this one contig are now highlighted in red.
+In IGV, go to the region `chr3:186,500,000-188,000,000`. The alignment highlighted in blue indicates that the alignment of this contig to the reference genome is split in two, suggesting a misassembly or a structural rearrangement. Sometimes, highlighting for split alignments is not enabled by default. Right click on one of the alignments and choose "Link supplementary alignments" to enable highlighting. To find the other half of the alignment, hover over the blue alignment and note its "Read name". Right click on that alignment, select "Select by name", and enter the "Read name" that you noted previously. Both alignments of this one contig are now highlighted in red.
 
 What large-scale structural rearrangement has occurred, and what is its approximate size?
 
@@ -437,6 +437,16 @@ Extract the two sequences that we want to align. In the commands below, replace 
 ```sh
 samtools faidx chr3.fa chr3:186,900,000-187,800,000 >chr3q27.3.fa
 samtools faidx k48/HS0674-contigs.fa 102 | seqtk seq -r >inversion.fa
+```
+If you do not have "Seqtk" package installed on your system, Install it using:
+
+```sh
+git clone https://github.com/lh3/seqtk.git;
+cd seqtk; make
+```
+and either add add the path, or use it like "seqtk/seqtk". E.g  for the previous exercise:
+```sh
+samtools faidx k48/HS0674-contigs.fa 102 | seqtk/seqtk seq -r >inversion.fa
 ```
 
 Align the two sequences to each other using `nucmer` from MUMmer.
@@ -498,7 +508,7 @@ Browse the variants using IGV. Select "File -> Load from File" `k48/HS0674-conti
 Run SnpEff.
 
 ```sh
-snpEff download GRCh38.82
+snpEff download GRCh38.86
 snpEff eff GRCh38.82 k48/HS0674-contigs.vcf.gz >k48/HS0674-contigs.snpeff.vcf
 SnpSift extractFields k48/HS0674-contigs.snpeff.vcf CHROM POS ANN >k48/HS0674-contigs.snpeff
 ```
