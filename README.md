@@ -230,7 +230,7 @@ Look at the option `-n,--dry-run` of abyss-pe. Its output is the
 commands that ABySS will run for the assembly.
 
 ```sh
-abyss-pe name=HS0674 s=200 k=48 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs -n
+abyss-pe name=HS0674 k=48 s=200 in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs -n
 ```
 
 The assembly runs in three stages: assemble contigs without paired-end information, align the paired-end reads to the initial assembly, and merge contigs joined by paired-end information. You can instruct ABySS to stop after any of these stages. Use the `-n` option to see the commands for each stage.
