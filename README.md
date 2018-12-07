@@ -79,7 +79,7 @@ Install ABySS, bcftools, BWA, IGV, samtools and SnpEff using brew.
 
 ```sh
 brew tap brewsci/bio
-brew install abyss bcftools bwa gnuplot igv mummer samtools snpeff
+brew install abyss bcftools bwa gnuplot igv mummer samtools seqtk snpeff
 ```
 
 ## Install the software on Ubuntu and Debian using `apt-get`
@@ -212,7 +212,7 @@ Run the assembly.
 ```sh
 mkdir k48
 ln -s ../30CJCAAXX_4_1.fq.gz ../30CJCAAXX_4_2.fq.gz k48/
-abyss-pe -C k48 name=HS0674 s=200 k=48 v=-v in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs 2>&1 | tee abyss.log
+abyss-pe -C k48 name=HS0674 k=48 s=200 v=-v in="30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz" contigs 2>&1 | tee abyss.log
 ```
 
 You may need to use the uncompressed FASTQ files on a Mac.
@@ -221,7 +221,7 @@ You may need to use the uncompressed FASTQ files on a Mac.
 gunzip -k 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz
 mkdir k48
 ln -s ../30CJCAAXX_4_1.fq ../30CJCAAXX_4_2.fq k48/
-abyss-pe -C k48 name=HS0674 s=200 k=48 v=-v in="30CJCAAXX_4_1.fq 30CJCAAXX_4_2.fq" contigs 2>&1 | tee abyss.log
+abyss-pe -C k48 name=HS0674 k=48 s=200 v=-v in="30CJCAAXX_4_1.fq 30CJCAAXX_4_2.fq" contigs 2>&1 | tee abyss.log
 ```
 
 5 min, 200 MB RAM, 2 MB disk space
@@ -437,16 +437,6 @@ Extract the two sequences that we want to align. In the commands below, replace 
 ```sh
 samtools faidx chr3.fa chr3:186,900,000-187,800,000 >chr3q27.3.fa
 samtools faidx k48/HS0674-contigs.fa 102 | seqtk seq -r >inversion.fa
-```
-If you do not have "Seqtk" package installed on your system, Install it using:
-
-```sh
-git clone https://github.com/lh3/seqtk.git;
-cd seqtk; make
-```
-and either add add the path, or use it like "seqtk/seqtk". E.g  for the previous exercise:
-```sh
-samtools faidx k48/HS0674-contigs.fa 102 | seqtk/seqtk seq -r >inversion.fa
 ```
 
 Align the two sequences to each other using `nucmer` from MUMmer.
