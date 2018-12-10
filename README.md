@@ -418,7 +418,7 @@ The orientation is given in the second column. The numbers 0 and 2048 both indic
 
 > chr3:186,980,605 (-) and chr3:187,722,004 (+)
 
-In IGV, go to the region `chr3:186,500,000-188,000,000`. The alignment highlighted in blue indicates that the alignment of this contig to the reference genome is split in two, suggesting a misassembly or a structural rearrangement. Sometimes, highlighting for split alignments is not enabled by default. Right click on one of the alignments and choose `Link supplementary alignments` to enable highlighting. Because the orientations of the two alignments differ, part of the split alignment is highlighted in pink. Hover your cursor over the pink alignment and look at the `Strands` field in the pop up text.
+In IGV, go to the region `chr3:186,500,000-188,000,000`. Right click on one of the alignments and choose `Link supplementary alignments`. The two alignments connected by a thin line indicates that the alignment of this contig to the reference genome is split in two, suggesting a misassembly or a structural rearrangement. Because the orientations of the two alignments differ, part of the split alignment is highlighted in pink. Hover your cursor over the pink alignment and look at the `Strands` field in the pop up text.
 
 What large-scale structural rearrangement has occurred, and what is its approximate size?
 
