@@ -73,64 +73,64 @@ $(document).ready(function() {
 </ul>
 <h2 id="install-homebrew-for-mac-os">Install Homebrew for Mac OS</h2>
 <p>Install <a href="macappstores://itunes.apple.com/us/app/xcode/id497799835">Xcode</a>.</p>
-<p>Open Xcode, select &quot;Xcode -&gt; Preferences -&gt; Downloads -&gt; Command Line Tools -&gt; Install&quot;.</p>
+<p>Open Xcode, select “Xcode -&gt; Preferences -&gt; Downloads -&gt; Command Line Tools -&gt; Install”.</p>
 <p>Install <a href="http://brew.sh">Homebrew</a>.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">/usr/bin/ruby</span> -e <span class="st">&quot;</span><span class="ot">$(</span><span class="kw">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="ot">)</span><span class="st">&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="ex">/usr/bin/ruby</span> -e <span class="st">&quot;</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="va">)</span><span class="st">&quot;</span></a></code></pre></div>
 <h2 id="install-linuxbrew-for-linux">Install Linuxbrew for Linux</h2>
 <p>Install <a href="http://linuxbrew.sh">Linuxbrew</a>.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">ruby</span> -e <span class="st">&quot;</span><span class="ot">$(</span><span class="kw">curl</span> -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install<span class="ot">)</span><span class="st">&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="ex">ruby</span> -e <span class="st">&quot;</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install<span class="va">)</span><span class="st">&quot;</span></a></code></pre></div>
 <p>Add the <code>brew</code> command to your <code>PATH</code>. You will need to run this command again in each new shell that you open.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ot">PATH=</span>~/.linuxbrew/bin:<span class="ot">$PATH</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="va">PATH=</span>~/.linuxbrew/bin:<span class="va">$PATH</span></a></code></pre></div>
 <h2 id="install-the-software-using-homebrew-or-linuxbrew">Install the software using Homebrew or Linuxbrew</h2>
 <p>Install ABySS, bcftools, BWA, IGV, samtools and SnpEff using brew.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">brew</span> tap homebrew/science
-<span class="kw">brew</span> install abyss bcftools bwa gnuplot igv mummer samtools snpeff</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="ex">brew</span> tap brewsci/bio</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="ex">brew</span> install abyss bcftools bwa gnuplot igv mummer samtools seqtk snpeff</a></code></pre></div>
 <h2 id="install-the-software-on-ubuntu-and-debian-using-apt-get">Install the software on Ubuntu and Debian using <code>apt-get</code></h2>
 <p>Install ABySS, bcftools, BWA, igv, and samtools.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get install abyss bcftools bwa igv samtools
-<span class="kw">sudo</span> ln -s /usr/lib/abyss/abyss-fac /usr/local/bin/</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="fu">sudo</span> apt-get install abyss bcftools bwa igv samtools</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="fu">sudo</span> ln -s /usr/lib/abyss/abyss-fac /usr/local/bin/</a></code></pre></div>
 <h2 id="install-the-software-manually">Install the software manually</h2>
 <p>IGV may be installed using Java Web Start.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">javaws</span> http://www.broadinstitute.org/igv/projects/current/igv.jnlp</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="ex">javaws</span> http://www.broadinstitute.org/igv/projects/current/igv.jnlp</a></code></pre></div>
 <p>snpEff may be installed manually.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">curl</span> -LO http://downloads.sourceforge.net/project/snpeff/snpEff_v4_2_core.zip
-<span class="kw">unzip</span> snpEff_v4_2_core.zip</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="ex">curl</span> -LO http://downloads.sourceforge.net/project/snpeff/snpEff_v4_2_core.zip</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="fu">unzip</span> snpEff_v4_2_core.zip</a></code></pre></div>
 <h2 id="check-that-the-software-is-installed">Check that the software is installed</h2>
 <p>Check that the tools are installed in the PATH.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">which</span> abyss-fac abyss-pe bcftools bwa curl java samtools snpEff SnpSift</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="fu">which</span> abyss-fac abyss-pe bcftools bwa curl java samtools snpEff SnpSift</a></code></pre></div>
 <h2 id="download-the-data">Download the data</h2>
 <p>Create your working directory.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">mkdir</span> ~/abyss
-<span class="kw">cd</span> ~/abyss</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="fu">mkdir</span> ~/abyss</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="bu">cd</span> ~/abyss</a></code></pre></div>
 <p>Download the FASTQ files.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">curl</span> -LO ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_1.fq.gz
-<span class="kw">curl</span> -LO ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_2.fq.gz</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="ex">curl</span> -LO http://www.bcgsc.ca/downloads/btl/sjackman/30CJCAAXX_4_1.fq.gz</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="ex">curl</span> -LO http://www.bcgsc.ca/downloads/btl/sjackman/30CJCAAXX_4_2.fq.gz</a></code></pre></div>
 <p>Download the reference file of human chromosome 3.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">curl</span> -LO http://hgdownload.cse.ucsc.edu/goldenpath/hg38/chromosomes/chr3.fa.gz
-<span class="kw">gunzip</span> chr3.fa.gz</code></pre></div>
-<p>Install snpEff if you haven't yet, and download the snpEff database.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">brew</span> install snpeff
-<span class="kw">snpEff</span> download GRCh38.82</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="ex">curl</span> -LO http://hgdownload.cse.ucsc.edu/goldenpath/hg38/chromosomes/chr3.fa.gz</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="fu">gunzip</span> chr3.fa.gz</a></code></pre></div>
+<p>Install snpEff if you haven’t yet, and download the snpEff database.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="ex">brew</span> install snpeff</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="ex">snpEff</span> download GRCh38.86</a></code></pre></div>
 <h1 id="exercise-0-index-the-reference-using-bwa">Exercise 0: Index the reference using BWA</h1>
 <p>Index the reference file.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">bwa</span> index chr3.fa</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="ex">bwa</span> index chr3.fa</a></code></pre></div>
 <p>8 min, 1 GB RAM, 260 MB disk space</p>
 <h1 id="exercise-1-align-the-reads-to-the-reference-using-bwa-optional">Exercise 1: Align the reads to the reference using BWA (optional)</h1>
 <p>Run BWA.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">bwa</span> mem -t2 chr3.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz <span class="kw">&gt;</span>30CJCAAXX_4.sam</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="ex">bwa</span> mem -t2 chr3.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz <span class="op">&gt;</span>30CJCAAXX_4.sam</a></code></pre></div>
 <p>40 min, 250 MB RAM, 3 GB disk space</p>
 <p>While this job is running in the background, open a new terminal and continue with the next section.</p>
 <h1 id="exercise-2-inspect-the-reads">Exercise 2: Inspect the reads</h1>
 <p>There are two FASTQ files for this one lane of paired-end Illumina data: one file for the forward reads and one file for the reverse reads. Look at the first few reads.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">gunzip</span> -c 30CJCAAXX_4_1.fq.gz <span class="kw">|</span> <span class="kw">head</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="fu">gunzip</span> -c 30CJCAAXX_4_1.fq.gz <span class="kw">|</span> <span class="fu">head</span></a></code></pre></div>
 <p>How long are the reads? (hint: use <code>awk '{print length}'</code>)</p>
 <blockquote>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">gunzip</span> -c 30CJCAAXX_4_1.fq.gz <span class="kw">|</span> <span class="kw">awk</span> <span class="st">&#39;{print length}&#39;</span> <span class="kw">|</span> <span class="kw">head</span> -n2</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="fu">gunzip</span> -c 30CJCAAXX_4_1.fq.gz <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{print length}&#39;</span> <span class="kw">|</span> <span class="fu">head</span> -n2</a></code></pre></div>
 <p>50 bp</p>
 </blockquote>
 <p>How many lines are there in both files? (hint: use <code>wc -l</code>)</p>
 <blockquote>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">gunzip</span> -c 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz <span class="kw">|</span> <span class="kw">wc</span> -l</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="fu">gunzip</span> -c 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz <span class="kw">|</span> <span class="fu">wc</span> -l</a></code></pre></div>
 <p>40,869,448 lines</p>
 </blockquote>
 <p>How many lines per read?</p>
@@ -151,60 +151,60 @@ $(document).ready(function() {
 </blockquote>
 <h1 id="exercise-3-assemble-the-reads-into-contigs-using-abyss">Exercise 3: Assemble the reads into contigs using ABySS</h1>
 <p>Run the assembly.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">mkdir</span> k48
-<span class="kw">ln</span> -s ../30CJCAAXX_4_1.fq.gz ../30CJCAAXX_4_2.fq.gz k48/
-<span class="kw">abyss-pe</span> -C k48 name=HS0674 k=48 v=-v in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> contigs <span class="kw">2&gt;&amp;1</span> <span class="kw">|</span> <span class="kw">tee</span> abyss.log</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="fu">mkdir</span> k48</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="fu">ln</span> -s ../30CJCAAXX_4_1.fq.gz ../30CJCAAXX_4_2.fq.gz k48/</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="ex">abyss-pe</span> -C k48 name=HS0674 k=48 s=200 v=-v in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> contigs <span class="op">2&gt;&amp;1</span> <span class="kw">|</span> <span class="fu">tee</span> abyss.log</a></code></pre></div>
 <p>You may need to use the uncompressed FASTQ files on a Mac.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">gunzip</span> -k 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz
-<span class="kw">mkdir</span> k48
-<span class="kw">ln</span> -s ../30CJCAAXX_4_1.fq ../30CJCAAXX_4_2.fq k48/
-<span class="kw">abyss-pe</span> -C k48 name=HS0674 k=48 v=-v in=<span class="st">&quot;30CJCAAXX_4_1.fq 30CJCAAXX_4_2.fq&quot;</span> contigs <span class="kw">2&gt;&amp;1</span> <span class="kw">|</span> <span class="kw">tee</span> abyss.log</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="fu">gunzip</span> -k 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="fu">mkdir</span> k48</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="fu">ln</span> -s ../30CJCAAXX_4_1.fq ../30CJCAAXX_4_2.fq k48/</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="ex">abyss-pe</span> -C k48 name=HS0674 k=48 s=200 v=-v in=<span class="st">&quot;30CJCAAXX_4_1.fq 30CJCAAXX_4_2.fq&quot;</span> contigs <span class="op">2&gt;&amp;1</span> <span class="kw">|</span> <span class="fu">tee</span> abyss.log</a></code></pre></div>
 <p>5 min, 200 MB RAM, 2 MB disk space</p>
 <p>Look at the option <code>-n,--dry-run</code> of abyss-pe. Its output is the commands that ABySS will run for the assembly.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">abyss-pe</span> name=HS0674 k=48 in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> contigs -n</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="ex">abyss-pe</span> name=HS0674 k=48 s=200 in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> contigs -n</a></code></pre></div>
 <p>The assembly runs in three stages: assemble contigs without paired-end information, align the paired-end reads to the initial assembly, and merge contigs joined by paired-end information. You can instruct ABySS to stop after any of these stages. Use the <code>-n</code> option to see the commands for each stage.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">abyss-pe</span> name=HS0674 k=48 in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> unitigs -n
-<span class="kw">abyss-pe</span> name=HS0674 k=48 in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> pe-sam -n
-<span class="kw">abyss-pe</span> name=HS0674 k=48 in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> contigs -n</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="ex">abyss-pe</span> name=HS0674 k=48 in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> unitigs -n</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="ex">abyss-pe</span> name=HS0674 k=48 in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> pe-sam -n</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="ex">abyss-pe</span> name=HS0674 k=48 in=<span class="st">&quot;30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz&quot;</span> contigs -n</a></code></pre></div>
 <p>Once the assembly has completed, look at the assembled contigs using <code>less</code>. The option <code>-S</code> disables line wrapping.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">less</span> -S k48/HS0674-contigs.fa</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="fu">less</span> -S k48/HS0674-contigs.fa</a></code></pre></div>
 <p>How many contigs are longer than 100 bp?</p>
 <blockquote>
 <p>6</p>
 </blockquote>
 <p>What is the length of the longest contig (hint: use <code>awk '{print length}'</code>)?</p>
 <blockquote>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">awk</span> <span class="st">&#39;{print length}&#39;</span> k48/HS0674-contigs.fa <span class="kw">|</span> <span class="kw">sort</span> -n <span class="kw">|</span> <span class="kw">tail</span> -n1</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="fu">awk</span> <span class="st">&#39;{print length}&#39;</span> k48/HS0674-contigs.fa <span class="kw">|</span> <span class="fu">sort</span> -n <span class="kw">|</span> <span class="fu">tail</span> -n1</a></code></pre></div>
 <p>67,526 bp</p>
 </blockquote>
 <p>What is the N50 of the assembly?</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">abyss-fac</span> k48/HS0674-contigs.fa</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="ex">abyss-fac</span> k48/HS0674-contigs.fa</a></code></pre></div>
 <blockquote>
 <pre><code>n   n:500  L50  min   N80    N50    N20    E-size  max    sum     name
 13  6      2    8044  54373  54743  67480  51662   67480  212330  k48/HS0674-contigs.fa</code></pre>
 <p>54,743 bp</p>
 </blockquote>
 <p>View the assembly log.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">less</span> -S abyss.log</code></pre></div>
-<p>What portion of the reads align to the assembly? (hint: search for &quot;Mapped&quot;)</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="fu">less</span> -S abyss.log</a></code></pre></div>
+<p>What portion of the reads align to the assembly? (hint: search for “Mapped”)</p>
 <blockquote>
 <p>Mapped 7167472 of 10217362 reads (70.1%)</p>
 </blockquote>
-<p>What is the median fragment size and standard deviation of this library? (hint: search for &quot;median&quot;)</p>
+<p>What is the median fragment size and standard deviation of this library? (hint: search for “median”)</p>
 <blockquote>
 <p>median = 204 bp, sd = 18 bp</p>
 </blockquote>
 <h1 id="exercise-4-align-the-contigs-to-the-reference-using-web-blat">Exercise 4: Align the contigs to the reference using web BLAT</h1>
 <p>Open BLAT in a web browser: <a href="http://genome.ucsc.edu" class="uri">http://genome.ucsc.edu</a></p>
 <p>View the assembled contigs in a text editor. <code>gview</code> is one text editor. You can use any text editor that you prefer.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">gview</span> k48/HS0674-contigs.fa</code></pre></div>
-<p>Disable line wrap to make it easier to select the full sequence. For Emacs, select the option &quot;Options -&gt; Line Wrapping in this Buffer -&gt; Truncate Long Lines.&quot; For Vim, select the option &quot;Edit -&gt; File Settings -&gt; Toggle Line Wrap&quot;, or type <code>:set nowrap</code></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="ex">gview</span> k48/HS0674-contigs.fa</a></code></pre></div>
+<p>Disable line wrap to make it easier to select the full sequence. For Emacs, select the option “Options -&gt; Line Wrapping in this Buffer -&gt; Truncate Long Lines.” For Vim, select the option “Edit -&gt; File Settings -&gt; Toggle Line Wrap”, or type <code>:set nowrap</code></p>
 <p>Select the two contigs whose lengths are approximately 8 and 16.5 kbp and copy-and-paste their sequence into BLAT.</p>
 <p>What is the exact length of these two contigs?</p>
 <blockquote>
 <p>8,044 bp and 16,561 bp</p>
 </blockquote>
-<p>Click &quot;browser&quot; for the best alignment and then zoom out 10x. To which chromosome and band do these contigs align?</p>
+<p>Click “browser” for the best alignment and then zoom out 10x. To which chromosome and band do these contigs align?</p>
 <blockquote>
 <p>chr3q27.3</p>
 </blockquote>
@@ -212,9 +212,9 @@ $(document).ready(function() {
 <blockquote>
 <p>SST and RTP2</p>
 </blockquote>
-<p>Set the &quot;Common SNPs&quot; track in Variation to &quot;pack&quot;.</p>
+<p>Set the “Common SNPs” track in Variation to “pack”.</p>
 <p>A SNV between the assembled sequence and reference sequence is displayed with a red line. Zoom in on a SNV. Is it in dbSNP?</p>
-<p>Zoom in on the gap between the two contigs. Set the &quot;RepeatMasker&quot; track in Repeats to &quot;full&quot;. What feature overlaps the gap that likely caused the assembly gap?</p>
+<p>Zoom in on the gap between the two contigs. Set the “RepeatMasker” track in Repeats to “full”. What feature overlaps the gap that likely caused the assembly gap?</p>
 <blockquote>
 <p>Simple_repeat (TA)n</p>
 </blockquote>
@@ -224,7 +224,7 @@ $(document).ready(function() {
 <p>the 16.5 kbp contig</p>
 </blockquote>
 <p>Select that contig, and copy the unaligned sequence to the clipboard. Aligned sequence is shown in blue upper-case characters, and unaligned sequence is shown in black lower-case characters. Open BLAST in a web browser: <a href="http://blast.ncbi.nlm.nih.gov" class="uri">http://blast.ncbi.nlm.nih.gov</a></p>
-<p>Select &quot;Nucleotide BLAST&quot;. Select the database &quot;Nucleotide collection (nr/nt)&quot;. Paste the sequence into the query box. Click BLAST. Look at the first few best hits, and ignore hits to chimpanzee (<em>Pan troglodytes</em>) clones. What is the best alignment of our non-human contig fragment?</p>
+<p>Select “Nucleotide BLAST”. Select the database “Nucleotide collection (nr/nt)”. Paste the sequence into the query box. Click BLAST. Look at the first few best hits, and ignore hits to chimpanzee (<em>Pan troglodytes</em>) clones. What is the best alignment of our non-human contig fragment?</p>
 <blockquote>
 <p>Cloning vector pTARBAC</p>
 </blockquote>
@@ -235,13 +235,13 @@ $(document).ready(function() {
 <h1 id="exercise-5-align-the-contigs-to-the-reference-using-bwa-mem">Exercise 5: Align the contigs to the reference using BWA-MEM</h1>
 <p>Warning: do not start BWA-MEM until BWA has completed unless your machine has at least 2 GB of RAM.</p>
 <p>Run BWA-MEM.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">bwa</span> mem -t2 chr3.fa k48/HS0674-contigs.fa <span class="kw">&gt;</span>k48/HS0674-contigs.sam
-<span class="kw">samtools</span> sort -o k48/HS0674-contigs.bam k48/HS0674-contigs.sam
-<span class="kw">samtools</span> index k48/HS0674-contigs.bam</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="ex">bwa</span> mem -t2 chr3.fa k48/HS0674-contigs.fa <span class="op">&gt;</span>k48/HS0674-contigs.sam</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="ex">samtools</span> sort -o k48/HS0674-contigs.bam k48/HS0674-contigs.sam</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="ex">samtools</span> index k48/HS0674-contigs.bam</a></code></pre></div>
 <p>1 min, 800 MB RAM, 1 MB disk space</p>
 <h1 id="exercise-6-browse-the-contig-to-reference-alignments-using-samtools-tview">Exercise 6: Browse the contig to reference alignments using samtools tview</h1>
 <p>Run samtools tview.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">samtools</span> tview k48/HS0674-contigs.bam chr3.fa</code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="ex">samtools</span> tview k48/HS0674-contigs.bam chr3.fa</a></code></pre></div>
 <p>Go to the region <code>chr3:186,931,150</code></p>
 <pre><code>g chr3:186,931,150</code></pre>
 <p>What variants do you see?</p>
@@ -259,31 +259,31 @@ $(document).ready(function() {
 <p>16 Ns</p>
 </blockquote>
 <h1 id="exercise-7-browse-the-contig-to-reference-alignments-using-igv">Exercise 7: Browse the contig to reference alignments using IGV</h1>
-<p>Start IGV. Open the &quot;IGV 2.3&quot; icon on your desktop, or run either <code>igv</code> or <code>javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp</code> at the command line.</p>
-<p>Select &quot;View -&gt; Preferences -&gt; Alignments&quot; and change &quot;Visibility range threshold (kb)&quot; to 1000. Select the &quot;Genomes -&gt; Load Genome From Server -&gt; Human hg38&quot;. Then select &quot;File -&gt; Load from File&quot; and &quot;k48/HS0674-contigs.bam&quot; Go to the region <code>chr3:186,500,000-188,000,000</code> by entering it into the box labeled &quot;Go&quot;. IGV may take up to a minute to load.</p>
+<p>Start IGV. Open the “IGV 2.3” icon on your desktop, or run either <code>igv</code> or <code>javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp</code> at the command line.</p>
+<p>Select “View -&gt; Preferences -&gt; Alignments” and change “Visibility range threshold (kb)” to 1000. Select the “Genomes -&gt; Load Genome From Server -&gt; Human hg38”. Then select “File -&gt; Load from File” and “k48/HS0674-contigs.bam” Go to the region <code>chr3:186,500,000-188,000,000</code> by entering it into the box labeled “Go”. IGV may take up to a minute to load.</p>
 <p>Which four genes overlap the contigs?</p>
 <blockquote>
 <p>ST6GAL1, SST, RTP2 and BCL6</p>
 </blockquote>
-<p>Add the dbSNP track. Select &quot;File -&gt; Load from Server&quot;, expand &quot;Annotations&quot; and select &quot;Common Snps 1.4.2&quot;.</p>
-<p>Alternatively, download <code>ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz</code> and its associated <code>.gz.tbi</code> index file, and load it using &quot;File -&gt; Load from File&quot;.</p>
+<p>Add the dbSNP track. Select “File -&gt; Load from Server”, expand “Annotations” and select “All Snps 1.4.2”. Should you have issues loading it, select “common Snps 1.4.2” instead.</p>
+<p>Alternatively, download <code>ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz</code> for Common Snps, or <code>ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-All.vcf.gz</code> for All Snps along with their associated <code>.gz.tbi</code> index file, and load them using “File -&gt; Load from File”.</p>
 <p>Zoom in on a SNV. Is it in dbSNP? Is it coding?</p>
 <p>Bonus: Find a coding SNV. What is its dbSNP rs ID?</p>
 <blockquote>
-<p>rs1973791 (chr3:187,698,846) and rs11707167 (chr3:187,698,931) in the last exon of RTP2. rs1056932 (chr3:187,729,244) in exon 5 of BCL6.</p>
+<p>rs1973791 (chr3:187,698,846) and rs11707167 (chr3:187,698,931) in the last exon of RTP2. (note that rs1973791 in only available when using “All Snps 1.4.2”, so ignore it if you are using “common Snps 1.4.2”). rs1056932 (chr3:187,729,244) in exon 5 of BCL6.</p>
 </blockquote>
 <h1 id="exercise-8-view-the-contig-to-reference-alignments-sam-file">Exercise 8: View the contig to reference alignments SAM file</h1>
 <p>View the SAM file.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">less</span> -S k48/HS0674-contigs.sam</code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="fu">less</span> -S k48/HS0674-contigs.sam</a></code></pre></div>
 <p>The contig ID is given in the first column, and the position of the contig on the reference is given in the third and fourth columns. Which large contig has two alignments, and what are the positions of these two alignments?</p>
 <blockquote>
-<p>The contig that has alignments starting at chr3:186,698,393 and chr3:187,439,792.</p>
+<p>The contig that has alignments starting at chr3:186,980,605 and chr3:187,722,004.</p>
 </blockquote>
 <p>The orientation is given in the second column. The numbers 0 and 2048 both indicate positive orientation, and 16 indicates negative orientation. What is the position and orientation of these two alignments?</p>
 <blockquote>
 <p>chr3:186,980,605 (-) and chr3:187,722,004 (+)</p>
 </blockquote>
-<p>In IGV, go to the region <code>chr3:186,500,000-188,000,000</code>. The alignment highlighted in blue indicates that the alignment of this contig to the reference genome is split in two, suggesting a misassembly or a structural rearrangement. To find the other half of the alignment, hover over the blue alignment and note its &quot;Read name&quot;. Right click on that alignment, select &quot;Select by name&quot;, and enter the &quot;Read name&quot; that you noted previously. Both alignments of this one contig are now highlighted in red.</p>
+<p>In IGV, go to the region <code>chr3:186,500,000-188,000,000</code>. Right click on one of the alignments and choose <code>Link supplementary alignments</code>. The two alignments connected by a thin line indicates that the alignment of this contig to the reference genome is split in two, suggesting a misassembly or a structural rearrangement. Because the orientations of the two alignments differ, part of the split alignment is highlighted in pink. Hover your cursor over the pink alignment and look at the <code>Strands</code> field in the pop up text.</p>
 <p>What large-scale structural rearrangement has occurred, and what is its approximate size?</p>
 <blockquote>
 <p>a ~700 kbp inversion</p>
@@ -295,46 +295,46 @@ $(document).ready(function() {
 <h2 id="create-a-dot-plot-using-mummer">Create a dot plot using MUMmer</h2>
 <p>A dot plot visualizes the alignments of two sequences to each other.</p>
 <p>Extract the two sequences that we want to align. In the commands below, replace the number <code>102</code> with the contig identifier of your contig that shows the inversion. Your contig may be reverse-complemented with respect to the reference, because the orientation of assembled contigs is arbitrary. The <code>seqtk seq -r</code> command below reverse complements the contig sequence. If your contig had the same orientation as the reference, you would want to skip that command.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">samtools</span> faidx chr3.fa chr3:186,900,000-187,800,000 <span class="kw">&gt;</span>chr3q27.3.fa
-<span class="kw">samtools</span> faidx k48/HS0674-contigs.fa 102 <span class="kw">|</span> <span class="kw">seqtk</span> seq -r <span class="kw">&gt;</span>inversion.fa</code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="ex">samtools</span> faidx chr3.fa chr3:186,900,000-187,800,000 <span class="op">&gt;</span>chr3q27.3.fa</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="ex">samtools</span> faidx k48/HS0674-contigs.fa 102 <span class="kw">|</span> <span class="ex">seqtk</span> seq -r <span class="op">&gt;</span>inversion.fa</a></code></pre></div>
 <p>Align the two sequences to each other using <code>nucmer</code> from MUMmer.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">nucmer</span> -p inversion chr3q27.3.fa inversion.fa <span class="kw">&gt;</span>inversion.delta</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="ex">nucmer</span> -p inversion chr3q27.3.fa inversion.fa <span class="op">&gt;</span>inversion.delta</a></code></pre></div>
 <p>Create the dot plot.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">mummerplot</span> -png -p inversion inversion.delta</code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="ex">mummerplot</span> -png -p inversion inversion.delta</a></code></pre></div>
 <p>Edit the file <code>inversion.gp</code> to make the aspect ratio square. Also disable the interactive mouse feature of gnuplot, which requires that you install X11. The following command uses <code>sed</code> to edit the file, but you could also use a text editor.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">sed</span> -i <span class="st">&#39;&#39;</span> <span class="st">&#39;s/set size 1,1/set size ratio -1/;/set mouse/d&#39;</span> inversion.gp
-<span class="kw">gnuplot</span> inversion.gp</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="fu">sed</span> -i <span class="st">&#39;&#39;</span> <span class="st">&#39;s/set size 1,1/set size ratio -1/;/set mouse/d&#39;</span> inversion.gp</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="ex">gnuplot</span> inversion.gp</a></code></pre></div>
 <p>Open the image <code>inversion.png</code>. The size of the bacterial artificial chromosome (BAC) is much smaller than the size of the inversion, but even so we can still determine the size of the inversion. If you have pen and paper handy, draw what the dot plot would look like if the inversion were smaller so that the BAC contained the entire inversion. How large is the inversion?</p>
 <blockquote>
 <p>approximately 700 kbp</p>
 </blockquote>
 <h1 id="exercise-9-call-variants-of-the-reads-to-reference-alignments-using-bcftools-optional">Exercise 9: Call variants of the reads-to-reference alignments using bcftools (optional)</h1>
 <p>Check that BWA has completed aligning the reads to the reference, or run BWA now.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">bwa</span> mem -t2 chr3.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz <span class="kw">&gt;</span>30CJCAAXX_4.sam</code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="ex">bwa</span> mem -t2 chr3.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz <span class="op">&gt;</span>30CJCAAXX_4.sam</a></code></pre></div>
 <p>Call variants using bcftools.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">samtools</span> sort -@2 -o 30CJCAAXX_4.bam 30CJCAAXX_4.sam
-<span class="kw">samtools</span> index 30CJCAAXX_4.bam
-<span class="kw">samtools</span> mpileup -u -d 9999 -L 9999 -f chr3.fa 30CJCAAXX_4.bam <span class="kw">&gt;</span>30CJCAAXX_4.bcf
-<span class="kw">bcftools</span> call -c -v -Oz 30CJCAAXX_4.bcf <span class="kw">&gt;</span>30CJCAAXX_4.vcf.gz
-<span class="kw">bcftools</span> index 30CJCAAXX_4.vcf.gz</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="ex">samtools</span> sort -@2 -o 30CJCAAXX_4.bam 30CJCAAXX_4.sam</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="ex">samtools</span> index 30CJCAAXX_4.bam</a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="ex">samtools</span> mpileup -u -d 9999 -L 9999 -f chr3.fa 30CJCAAXX_4.bam <span class="op">&gt;</span>30CJCAAXX_4.bcf</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="ex">bcftools</span> call -c -v -Oz 30CJCAAXX_4.bcf <span class="op">&gt;</span>30CJCAAXX_4.vcf.gz</a>
+<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="ex">bcftools</span> index 30CJCAAXX_4.vcf.gz</a></code></pre></div>
 <p>20 min, 250 MB RAM, 120 MB disk space</p>
 <h1 id="exercise-10-call-variants-of-the-contigs-to-reference-alignments-using-bcftools">Exercise 10: Call variants of the contigs-to-reference alignments using bcftools</h1>
 <p>Run bcftools.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">samtools</span> mpileup -v -B -f chr3.fa k48/HS0674-contigs.bam <span class="kw">|</span> <span class="kw">bcftools</span> view -Oz -v snps,mnps,indels <span class="kw">&gt;</span>k48/HS0674-contigs.vcf.gz
-<span class="kw">bcftools</span> index k48/HS0674-contigs.vcf.gz</code></pre></div>
-<p>Browse the variants using IGV. Select &quot;File -&gt; Load from File&quot; <code>k48/HS0674-contigs.vcf.gz</code></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="ex">samtools</span> mpileup -v -B -f chr3.fa k48/HS0674-contigs.bam <span class="kw">|</span> <span class="ex">bcftools</span> view -Oz -v snps,mnps,indels <span class="op">&gt;</span>k48/HS0674-contigs.vcf.gz</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="ex">bcftools</span> index k48/HS0674-contigs.vcf.gz</a></code></pre></div>
+<p>Browse the variants using IGV. Select “File -&gt; Load from File” <code>k48/HS0674-contigs.vcf.gz</code></p>
 <h1 id="exercise-11-determine-the-effects-of-the-snvs">Exercise 11: Determine the effects of the SNVs</h1>
 <p>Run SnpEff.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">snpEff</span> download GRCh38.82
-<span class="kw">snpEff</span> eff GRCh38.82 k48/HS0674-contigs.vcf.gz <span class="kw">&gt;</span>k48/HS0674-contigs.snpeff.vcf
-<span class="kw">SnpSift</span> extractFields k48/HS0674-contigs.snpeff.vcf CHROM POS ANN <span class="kw">&gt;</span>k48/HS0674-contigs.snpeff</code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="ex">snpEff</span> download GRCh38.86</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="ex">snpEff</span> eff GRCh38.82 k48/HS0674-contigs.vcf.gz <span class="op">&gt;</span>k48/HS0674-contigs.snpeff.vcf</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="ex">SnpSift</span> extractFields k48/HS0674-contigs.snpeff.vcf CHROM POS ANN <span class="op">&gt;</span>k48/HS0674-contigs.snpeff</a></code></pre></div>
 <p>1 min, 2.8 GB RAM</p>
 <p>View the output of SnpEff.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">less</span> -S k48/HS0674-contigs.snpeff</code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="fu">less</span> -S k48/HS0674-contigs.snpeff</a></code></pre></div>
 <p>Count the number of SNVs in each category of effect.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">cut</span> -d<span class="st">&#39;|&#39;</span> -f2 k48/HS0674-contigs.snpeff <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="fu">cut</span> -d<span class="st">&#39;|&#39;</span> -f2 k48/HS0674-contigs.snpeff <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> -c</a></code></pre></div>
 <p>Find all the coding (synonymous or missense) SNVs.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">egrep</span> <span class="st">&#39;synonymous|missense&#39;</span> k48/HS0674-contigs.snpeff <span class="kw">|</span> <span class="kw">cut</span> -f1,2</code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="fu">egrep</span> <span class="st">&#39;synonymous|missense&#39;</span> k48/HS0674-contigs.snpeff <span class="kw">|</span> <span class="fu">cut</span> -f1,2</a></code></pre></div>
 <p>Find the missense (non-synonymous) SNV. What is its location?</p>
 <blockquote>
 <p>chr3:187,698,931</p>
@@ -351,12 +351,12 @@ $(document).ready(function() {
 <h1 id="exercise-12-compare-the-assembly-variants-to-the-read-alignment-variants-optional">Exercise 12: Compare the assembly variants to the read-alignment variants (optional)</h1>
 <p>Browse the variants called by both methods using IGV.</p>
 <p>Start IGV using either the command line or the user interface.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">igv</span> -g hg38 k48/HS0674-contigs.bam,k48/HS0674-contigs.vcf.gz,30CJCAAXX_4.vcf.gz</code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="ex">igv</span> -g hg38 k48/HS0674-contigs.bam,k48/HS0674-contigs.vcf.gz,30CJCAAXX_4.vcf.gz</a></code></pre></div>
 <p>Or select:</p>
 <ul>
-<li>File -&gt; Load from File... <code>k48/HS0674-contigs.bam</code></li>
-<li>File -&gt; Load from File... <code>k48/HS0674-contigs.vcf.gz</code></li>
-<li>File -&gt; Load from File... <code>30CJCAAXX_4.vcf.gz</code></li>
+<li>File -&gt; Load from File… <code>k48/HS0674-contigs.bam</code></li>
+<li>File -&gt; Load from File… <code>k48/HS0674-contigs.vcf.gz</code></li>
+<li>File -&gt; Load from File… <code>30CJCAAXX_4.vcf.gz</code></li>
 </ul>
 <p>Go to the region <code>chr3:186,931,150-186,931,250</code></p>
 <p>Is the SNV called by both methods?</p>
@@ -375,25 +375,25 @@ $(document).ready(function() {
 <blockquote>
 <p>The insertion duplicates the 8-bp sequence TCTGGGTT. The remaining 16 bp are an untemplated insertion.</p>
 </blockquote>
-<p>Load the alignments of the reads to the reference. &quot;File -&gt; Load from File&quot; <code>30CJCAAXX_4.bam</code></p>
+<p>Load the alignments of the reads to the reference. “File -&gt; Load from File” <code>30CJCAAXX_4.bam</code></p>
 <p>The aligned reads do not show the insertion, but the alignments that span the insertion have mismatches at the end of the alignment. Do those mismatched bases agree with the inserted sequence?</p>
 <blockquote>
-<p>Yes, the mismatched bases show CT at the 5' end and CC at the 3' end, which agree with the inserted sequence.</p>
+<p>Yes, the mismatched bases show CT at the 5’ end and CC at the 3’ end, which agree with the inserted sequence.</p>
 </blockquote>
 <h1 id="exercise-13-align-the-reads-to-the-contigs-using-bwa-optional">Exercise 13: Align the reads to the contigs using BWA (optional)</h1>
 <p>Run BWA.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">bwa</span> index k48/HS0674-contigs.fa
-<span class="kw">bwa</span> mem -t2 k48/HS0674-contigs.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz <span class="kw">&gt;</span>k48/30CJCAAXX_4.sam
-<span class="kw">samtools</span> sort -@2 -o k48/30CJCAAXX_4.bam k48/30CJCAAXX_4.sam
-<span class="kw">samtools</span> index k48/30CJCAAXX_4.bam</code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="ex">bwa</span> index k48/HS0674-contigs.fa</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="ex">bwa</span> mem -t2 k48/HS0674-contigs.fa 30CJCAAXX_4_1.fq.gz 30CJCAAXX_4_2.fq.gz <span class="op">&gt;</span>k48/30CJCAAXX_4.sam</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="ex">samtools</span> sort -@2 -o k48/30CJCAAXX_4.bam k48/30CJCAAXX_4.sam</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="ex">samtools</span> index k48/30CJCAAXX_4.bam</a></code></pre></div>
 <p>12 min, 200 MB RAM, 3 GB disk space</p>
 <p>Index the assembly FASTA file.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">samtools</span> faidx k48/HS0674-contigs.fa</code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="ex">samtools</span> faidx k48/HS0674-contigs.fa</a></code></pre></div>
 <p>Browse the BAM file using samtools tview.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">samtools</span> tview k48/30CJCAAXX_4.bam k48/HS0674-contigs.fa</code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="ex">samtools</span> tview k48/30CJCAAXX_4.bam k48/HS0674-contigs.fa</a></code></pre></div>
 <p>Browse the BAM file using IGV.</p>
 <p>Start IGV using either the command line or the user interface.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="kw">igv</span> -g k48/HS0674-contigs.fa k48/30CJCAAXX_4.bam</code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="ex">igv</span> -g k48/HS0674-contigs.fa k48/30CJCAAXX_4.bam</a></code></pre></div>
 <p>Or select:</p>
 <ul>
 <li>Genomes -&gt; Load Genome from File <code>k48/HS0674-contigs.fa</code></li>
