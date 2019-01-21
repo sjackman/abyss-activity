@@ -127,8 +127,8 @@ cd ~/abyss
 Download the FASTQ files.
 
 ```sh
-curl -LO ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_1.fq.gz
-curl -LO ftp://ftp.bcgsc.ca/public/sjackman/30CJCAAXX_4_2.fq.gz
+curl -LO http://www.bcgsc.ca/downloads/btl/sjackman/30CJCAAXX_4_1.fq.gz
+curl -LO http://www.bcgsc.ca/downloads/btl/sjackman/30CJCAAXX_4_2.fq.gz
 ```
 
 Download the reference file of human chromosome 3.
